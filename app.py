@@ -84,12 +84,12 @@ class Invaders(GameApp):
         invariants. When done, it sets the _state to STATE_INACTIVE and create a message
         (in attribute _text) saying that the user should press to play a game.
         """
-        self._text = GLabel(text='Press \'s\' to Play'
-        , font='RetroGame.ttf', halign = 'center'
-        , valign='top')
-        self.view = GView()
+
+        self._text = GLabel(text='Press \'s\' to Play',halign='center',valign='top',x=500,y=500,fillcolor=[1,0,0,1]
+        ,font_name='RetroGame')
+
         self._state = STATE_INACTIVE
-        self._text.draw(self.view)
+
 
 
     def update(self,dt):
@@ -154,7 +154,7 @@ class Invaders(GameApp):
         the example subcontroller.py from class.
         """
         # IMPLEMENT ME
-        pass
+        self._text.draw(self.view)
 
 
     # HELPER METHODS FOR THE STATES GO HERE
