@@ -84,8 +84,13 @@ class Invaders(GameApp):
         invariants. When done, it sets the _state to STATE_INACTIVE and create a message
         (in attribute _text) saying that the user should press to play a game.
         """
-        # IMPLEMENT ME
-        pass
+        self._text = GLabel(text='Press \'s\' to Play'
+        , font='RetroGame.ttf', halign = 'center'
+        , valign='top')
+        self.view = GView()
+        self._state = STATE_INACTIVE
+        self._text.draw(self.view)
+
 
     def update(self,dt):
         """
