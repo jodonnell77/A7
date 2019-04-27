@@ -6,8 +6,8 @@ is no need for any additional classes in this module.  If you need more classes,
 the time they belong in either the wave module or the models module. If you are unsure
 about where a new class should go, post a question on Piazza.
 
-# YOUR NAME(S) AND NETID(S) HERE
-# DATE COMPLETED HERE
+# John O'Donnel (jro79) and Anthony Nguyen (an523)
+# 4/27/2019
 """
 from consts import *
 from game2d import *
