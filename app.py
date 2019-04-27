@@ -85,10 +85,12 @@ class Invaders(GameApp):
         (in attribute _text) saying that the user should press to play a game.
         """
 
-        self._text = GLabel(text='Press \'s\' to Play',halign='center',valign='top',x=500,y=500,fillcolor=[1,0,0,1]
+        self._state = STATE_INACTIVE
+        self._wave = None
+        self._text = GLabel(text='Press \'s\' to Play',halign='center',valign='top',x=400,y=400,fillcolor=[1,0,0,1]
         ,font_name='RetroGame')
 
-        self._state = STATE_INACTIVE
+
 
 
 
@@ -139,7 +141,7 @@ class Invaders(GameApp):
         Precondition: dt is a number (int or float)
         """
         # IMPLEMENT ME
-        pass
+        self._determineState()
 
     def draw(self):
         """
@@ -154,7 +156,24 @@ class Invaders(GameApp):
         the example subcontroller.py from class.
         """
         # IMPLEMENT ME
-        self._text.draw(self.view)
+        if self._state == STATE_INACTIVE:
+            self._text.draw(self.view)
+
+        if self._state == STATE_NEWWAVE:
+            self._text = None
 
 
     # HELPER METHODS FOR THE STATES GO HERE
+    def _determineState(self):
+        """
+        Determines the current state and assigns it to self._state
+
+        This method checks for a key press, and if there is one, changes the state.
+        If the user presses 's' key at the welcome screen, changes state to STATE_NEWWAVE
+
+        via state.py demo
+        """
+        # Welcome Screen
+        if self.input.is_key_down('s') and self._state == STATE_INACTIVE:
+            self._state = STATE_NEWWAVE
+            self._text=None
