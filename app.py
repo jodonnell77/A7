@@ -87,8 +87,8 @@ class Invaders(GameApp):
 
         self._state = STATE_INACTIVE
         self._wave = None
-        self._text = GLabel(text='Press \'s\' to Play',halign='center',valign='top',x=400,y=400,fillcolor=[1,0,0,1]
-        ,font_name='RetroGame')
+        self._text = GLabel(text='Press \'s\' to play',halign='center',valign='top',x=400,y=400,fillcolor=[1,1,1,1]
+        ,font_name='Arcade',font_size=80)
 
 
 
@@ -142,6 +142,14 @@ class Invaders(GameApp):
         """
         # IMPLEMENT ME
         self._determineState()
+        self.STATE_INACTIVE_Helper()
+        self.STATE_NEWWAVE_Helper()
+        self.STATE_ACTIVE_Helper()
+        self.STATE_PAUSED_Helper()
+        self.STATE_CONTINUE_Helper()
+        self.STATE_COMPLETE_Helper()
+
+
 
     def draw(self):
         """
@@ -176,4 +184,44 @@ class Invaders(GameApp):
         # Welcome Screen
         if self.input.is_key_down('s') and self._state == STATE_INACTIVE:
             self._state = STATE_NEWWAVE
-            self._text=None
+
+    def STATE_INACTIVE_Helper(self):
+        "Helper while state is STATE_INACTIVE"
+        pass
+
+
+
+
+    def STATE_NEWWAVE_Helper(self):
+        "Helper while state is STATE_NEWWAVE"
+        if self._state == STATE_NEWWAVE:
+            wave = Wave()
+            self._state = STATE_ACTIVE
+
+
+
+
+    def STATE_ACTIVE_Helper(self):
+        "Helper while state is STATE_ACTIVE"
+        pass
+
+
+
+
+    def STATE_PAUSED_Helper(self):
+        "Helper while state is STATE_PAUSED"
+        pass
+
+
+
+
+    def STATE_CONTINUE_Helper(self):
+        "Helper white state is STATE_CONTINUE"
+        pass
+
+
+
+
+    def STATE_COMPLETE_Helper(self):
+        "Helper white state is STATE_COMPLETE"
+        pass
