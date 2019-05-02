@@ -216,12 +216,12 @@ class Invaders(GameApp):
 
 
     def STATE_CONTINUE_Helper(self):
-        "Helper white state is STATE_CONTINUE"
+        "Helper while state is STATE_CONTINUE"
         pass
 
 
 
 
     def STATE_COMPLETE_Helper(self):
-        "Helper white state is STATE_COMPLETE"
+        "Helper while state is STATE_COMPLETE"
         pass
