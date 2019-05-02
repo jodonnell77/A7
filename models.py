@@ -91,15 +91,15 @@ class Alien(GImage):
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
 
     # INITIALIZER TO CREATE AN ALIEN
-    def __init__(self,x,y,source):
+    def __init__(self,a,b,source):
         """
         Initializes an alien GImage with a given x coordinate, y coordinate, and source file
 
-        Parameter k: x coordinate of the alien
-        Precondition: k is an int or float
+        Parameter a: x coordinate of the alien
+        Precondition: a is an int or float
 
-        Parameter h: y coordinate of the alien
-        Precondition: h is an int or float
+        Parameter b: y coordinate of the alien
+        Precondition: b is an int or float
 
         Parameter source: image file of the alien
         Precondition: source is a string of the image file's name
@@ -112,7 +112,7 @@ class Alien(GImage):
 
 
 
-        super().__init__(x=x,y=y,width=ALIEN_WIDTH,height=ALIEN_HEIGHT,source=source)
+        super().__init__(x=a,y=b,width=ALIEN_WIDTH,height=ALIEN_HEIGHT,source=source)
     # METHOD TO CHECK FOR COLLISION (IF DESIRED)
 
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
