@@ -59,9 +59,28 @@ class Ship(GImage):
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
 
-    # INITIALIZER TO CREATE A NEW SHIP
+    def __init__(self,x)
 
     # METHODS TO MOVE THE SHIP AND CHECK FOR COLLISIONS
+    def move_ship(self,direction):
+    """
+    This method changes the ships horizontal position
+    Parameter: direction - which way will the ship move left or right
+    Precondition: direction must be a string of either 'left' or 'right'
+    """
+        assert is_instance(direction, str)
+        assert direction == 'left' or direction == 'right'
+
+
+        if direction == 'left':
+            self.x -= SHIP_MOVEMENT
+        else:
+            self.x += SHIP_MOVEMENT
+
+    def detect_alien_bolt_collision(self):
+    """
+    This method checks to see if an bolt fired from an alien ship has struck the ship if that is true it will
+    return True otherwise it will return False"""
 
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
 
