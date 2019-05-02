@@ -98,11 +98,20 @@ class Alien(GImage):
 
         Parameter k: x coordinate of the alien
         Precondition: k is an int or float
+
         Parameter h: y coordinate of the alien
         Precondition: h is an int or float
+
         Parameter source: image file of the alien
         Precondition: source is a string of the image file's name
         """
+        assert is_instance(k,int) or is_instance(k,float)
+        assert is_instance(h,int) or is_instance(h,float)
+        assert is_instance(source,str)
+        assert source == 'alien1.png' or source == 'alien2.png' or source == 'alien3.png'
+
+
+
 
         super().__init__(x=x,y=y,width=ALIEN_WIDTH,height=ALIEN_HEIGHT,source=source)
     # METHOD TO CHECK FOR COLLISION (IF DESIRED)
