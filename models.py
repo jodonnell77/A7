@@ -87,7 +87,6 @@ class Alien(GImage):
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
     """
-    pass
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
 
@@ -108,7 +107,7 @@ class Alien(GImage):
         assert is_instance(k,int) or is_instance(k,float)
         assert is_instance(h,int) or is_instance(h,float)
         assert is_instance(source,str)
-        assert source == 'alien1.png' or source == 'alien2.png' or source == 'alien3.png'
+        assert source in ALIEN_IMAGES
 
 
 

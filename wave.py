@@ -65,8 +65,25 @@ class Wave(object):
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
 
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
+    def __init__(self,ship, aliens, bolts, dline, lives, time):
+        assert is_instance(ship, Ship)
+        if(type(aliens) != list):
+            assert aliens == None
+        for i in range(len(aliens)):
+            for ii in range(len(aliens[i])):
+                assert is_instance(aliens[i][ii],Alien)
+        assert is_instance(bolts, list)
+        for i in bolts:
+            assert is_instance(i,Bolt)
+        assert is_instance(dline,GPath)
+        assert is_instance(lives, int) and lives >= 0
+        assert time >= 0
+    
 
+
+        
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
+    def update(self,dt):
 
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
 
