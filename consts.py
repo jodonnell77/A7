@@ -51,7 +51,7 @@ ALIEN_H_WALK  = ALIEN_WIDTH // 4
 # the number of vertical pixels to move an alien
 ALIEN_V_WALK  = ALIEN_HEIGHT // 2
 # The distance of the top alien from the top of the window
-ALIEN_CEILING = 100
+ALIEN_CEILING = 50
 # the number of rows of aliens, in range 1..10
 ALIEN_ROWS     = 5
 # the number of aliens per row

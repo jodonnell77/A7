@@ -63,28 +63,69 @@ class Wave(object):
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
+    def get_aliens(self):
+        "Getter for _aliens attibute in Wave"
+        return self._aliens
 
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
-    def __init__(self,ship, aliens, bolts, dline, lives, time):
-        assert is_instance(ship, Ship)
-        if(type(aliens) != list):
-            assert aliens == None
-        for i in range(len(aliens)):
-            for ii in range(len(aliens[i])):
-                assert is_instance(aliens[i][ii],Alien)
-        assert is_instance(bolts, list)
-        for i in bolts:
-            assert is_instance(i,Bolt)
-        assert is_instance(dline,GPath)
-        assert is_instance(lives, int) and lives >= 0
-        assert time >= 0
-    
+    def __init__(self):
+        self.create_aliens()
+
+#        assert is_instance(ship, Ship)
+#        if(type(aliens) != list):
+#            assert aliens == None
+#        for i in range(len(aliens)):
+#            for ii in range(len(aliens[i])):
+#                assert is_instance(aliens[i][ii],Alien)
+#        assert is_instance(bolts, list)
+#        for i in bolts:
+#            assert is_instance(i,Bolt)
+#        assert is_instance(dline,GPath)
+#        assert is_instance(lives, int) and lives >= 0
+#        assert time >= 0
+    def create_aliens(self):
+        """
+        Creates the list of aliens in their respective positions.
+        """
+        self._aliens =[]
+        upper = GAME_HEIGHT-ALIEN_CEILING
+        x=ALIEN_H_SEP + ALIEN_WIDTH*.5
+        base = upper-(ALIEN_HEIGHT+ALIEN_V_SEP)*ALIEN_ROWS
+        n=0 #image looper
+        for up in range(ALIEN_ROWS):
+            group = []
+            source = ALIEN_IMAGES[int(n)]
+            n+=0.5 ## maketwo same imagers per rows
+            if n == 3: #resets image loop
+                n=0
+            for across in range(ALIENS_IN_ROW):
+
+                group.append(Alien(x+(ALIEN_WIDTH+ALIEN_H_SEP)*(across)\
+                ,base + (ALIEN_HEIGHT+ALIEN_V_SEP)*(up),source))
+            self._aliens.append(group)
+        return self._aliens
 
 
-        
+
+
+
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
-    def update(self,dt):
+#    def update(self,dt):
 
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
+    def draw(self, view):
+        """Calls the draw function for Ship, Aliens, Defensive Line, and Bolts"""
+        self.draw_wave_aliens(view)
+
+    def draw_wave_aliens(self,view):
+        """
+        Draw the wave of aliens
+        """
+        for row in range(len(self.get_aliens())):
+            for column in range(len(self.get_aliens()[row])):
+                alien=self.get_aliens()[row][column]
+                if (alien != None):
+                    alien.draw(view) #drawing gimage
+
 
     # HELPER METHODS FOR COLLISION DETECTION

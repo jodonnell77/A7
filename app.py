@@ -170,6 +170,9 @@ class Invaders(GameApp):
         if self._state == STATE_NEWWAVE:
             self._text = None
 
+        if self._state != STATE_INACTIVE:
+            self._wave.draw(self.view)
+
 
     # HELPER METHODS FOR THE STATES GO HERE
     def _determineState(self):
@@ -195,7 +198,7 @@ class Invaders(GameApp):
     def STATE_NEWWAVE_Helper(self):
         "Helper while state is STATE_NEWWAVE"
         if self._state == STATE_NEWWAVE:
-            wave = Wave()
+            self._wave = Wave()
             self._state = STATE_ACTIVE
 
 
