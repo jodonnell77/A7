@@ -58,8 +58,9 @@ class Ship(GImage):
     pass
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
-
-    def __init__(self,x)
+    # INITIALIZER TO CREATE AN ALIEN
+    def __init__(self,x):
+        pass
 
     # METHODS TO MOVE THE SHIP AND CHECK FOR COLLISIONS
     def move_ship(self,direction):
@@ -123,8 +124,8 @@ class Alien(GImage):
         Parameter source: image file of the alien
         Precondition: source is a string of the image file's name
         """
-        #assert is_instance(k,int) or is_instance(k,float)
-        #assert is_instance(h,int) or is_instance(h,float)
+        #assert is_instance(a,int) or is_instance(a,float)
+        #assert is_instance(b,int) or is_instance(b,float)
         #assert is_instance(source,str)
         #assert source in ALIEN_IMAGES
 
