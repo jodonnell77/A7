@@ -59,8 +59,8 @@ class Ship(GImage):
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
     # INITIALIZER TO CREATE AN ALIEN
-    def __init__(self,x):
-        pass
+    def __init__(self,a,b,source):
+        super().__init__(x=a,y=b,width=SHIP_HEIGHT,height=SHIP_HEIGHT,source=source)
 
     # METHODS TO MOVE THE SHIP AND CHECK FOR COLLISIONS
     def move_ship(self,direction):
@@ -83,8 +83,9 @@ class Ship(GImage):
         This method checks to see if an bolt fired from an alien ship has struck the ship if that is true it will
         return True otherwise it will return False
         """
-
+        pass
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
+
 
 
 class Alien(GImage):

@@ -69,6 +69,7 @@ class Wave(object):
 
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
+        self._ship = Ship(400,SHIP_BOTTOM,'ship.png')
         self.create_aliens()
 
 #        assert is_instance(ship, Ship)
@@ -116,6 +117,7 @@ class Wave(object):
     def draw(self, view):
         """Calls the draw function for Ship, Aliens, Defensive Line, and Bolts"""
         self.draw_wave_aliens(view)
+        self._ship.draw(view)
 
     def draw_wave_aliens(self,view):
         """
