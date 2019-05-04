@@ -118,9 +118,6 @@ class Wave(object):
         linewidth=2, linecolor = "blue")
         return self._dline
 
-
-
-
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
     def update(self,input):
         assert isinstance(input,GInput)
