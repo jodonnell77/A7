@@ -25,6 +25,7 @@ make a new class or not, please ask on Piazza.
 from consts import *
 from game2d import *
 
+
 # PRIMARY RULE: Models are not allowed to access anything in any module other than
 # consts.py.  If you need extra information from Gameplay, then it should be
 # a parameter in your method, and Wave should pass it as a argument when it
@@ -69,7 +70,7 @@ class Ship(GImage):
         Parameter: direction - which way will the ship move left or right
         Precondition: direction must be a string of either 'left' or 'right'
         """
-        assert is_instance(direction, str)
+        assert isinstance(direction, str)
         assert direction == 'left' or direction == 'right'
 
 
