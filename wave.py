@@ -62,17 +62,17 @@ class Wave(object):
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
     """
-#        assert is_instance(ship, Ship)
+#        assert isinstance(ship, Ship)
 #        if(type(aliens) != list):
 #            assert aliens == None
 #        for i in range(len(aliens)):
 #            for ii in range(len(aliens[i])):
-#                assert is_instance(aliens[i][ii],Alien)
-#        assert is_instance(bolts, list)
+#                assert isinstance(aliens[i][ii],Alien)
+#        assert isinstance(bolts, list)
 #        for i in bolts:
-#            assert is_instance(i,Bolt)
-#        assert is_instance(dline,GPath)
-#        assert is_instance(lives, int) and lives >= 0
+#            assert isinstance(i,Bolt)
+#        assert isinstance(dline,GPath)
+#        assert isinstance(lives, int) and lives >= 0
 #        assert time >= 0
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
@@ -120,8 +120,10 @@ class Wave(object):
 
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
     def update(self,input):
-        assert isinstance(input,GInput)
+        self.update_ship(input)
 
+    def update_ship(self,input):
+        assert isinstance(input,GInput)
         if input.is_key_down('left'):
             self._ship.move_ship('left')
         elif input.is_key_down('right'):

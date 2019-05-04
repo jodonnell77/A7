@@ -72,12 +72,21 @@ class Ship(GImage):
         """
         assert isinstance(direction, str)
         assert direction == 'left' or direction == 'right'
-
-
+        self.stay_on_screen()
         if direction == 'left':
             self.x -= SHIP_MOVEMENT
-        else:
+        elif direction == 'right':
             self.x += SHIP_MOVEMENT
+
+    def stay_on_screen(self):
+        """
+        Prevents the ship from moving off sceen by moving ship counter to user
+        input if the ship is at the bounds of the game window
+        """
+        if self.x <= 0 + SHIP_WIDTH/2:
+            self.x += SHIP_MOVEMENT
+        if self.x >= GAME_WIDTH- SHIP_WIDTH/2:
+            self.x -= SHIP_MOVEMENT
 
     def detect_alien_bolt_collision(self):
         """
