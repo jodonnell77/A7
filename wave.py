@@ -18,6 +18,7 @@ issue.  If you do not know, ask on Piazza and we will answer.
 from game2d import *
 from consts import *
 from models import *
+
 import random
 
 # PRIMARY RULE: Wave can only access attributes in models.py via getters/setters
@@ -121,7 +122,13 @@ class Wave(object):
 
 
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
-#    def update(self,dt):
+    def update(self,input):
+        assert isinstance(input,GInput)
+
+        if input.is_key_down('left'):
+            self._ship.move_ship('left')
+        elif input.is_key_down('right'):
+            self._ship.move_ship('right')
 
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
     def draw(self, view):
