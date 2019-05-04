@@ -61,6 +61,7 @@ class Wave(object):
     and number of lives. If you make changes, please list the changes with the invariants.
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
+        _exists_player_bolt: boolean if a Ship Bolt is in the _bolts list
     """
 #        assert isinstance(ship, Ship)
 #        if(type(aliens) != list):
@@ -85,6 +86,8 @@ class Wave(object):
         self._ship = Ship(400,SHIP_BOTTOM,'ship.png')
         self.create_aliens()
         self.create_dline()
+        self._bolts = []
+        self._exists_player_bolt = False
 
     def create_aliens(self):
         """
@@ -118,9 +121,13 @@ class Wave(object):
         linewidth=2, linecolor = "blue")
         return self._dline
 
+
+
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
     def update(self,input):
         self.update_ship(input)
+        self.update_bolts(input)
+        print(self._bolts)
 
     def update_ship(self,input):
         assert isinstance(input,GInput)
@@ -129,12 +136,28 @@ class Wave(object):
         elif input.is_key_down('right'):
             self._ship.move_ship('right')
 
+    def update_bolts(self, input):
+
+        if input.is_key_down('z') and self._exists_player_bolt == False:
+            print('test')
+            self._bolts.append(Bolt(self._ship.get_ship_x(), BOLT_SPEED, 'player'))
+            self._exists_player_bolt = True
+
+        for i in range(len(self._bolts)):
+            self._bolts[i].move_bolt()
+            if self._bolts[i].get_kind_bolt() == 'player' and self._bolts[i].get_bolt_y() >= GAME_HEIGHT:
+                self._bolts.pop(i)
+                self._exists_player_bolt = False
+
+        
+
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
     def draw(self, view):
         """Calls the draw function for Ship, Aliens, Defensive Line, and Bolts"""
         self.draw_wave_aliens(view)
         self.draw_ship(view)
         self.draw_dline(view)
+        self.draw_bolt(view)
 
     def draw_wave_aliens(self,view):
         """
@@ -157,6 +180,14 @@ class Wave(object):
         Draws the defensive line
         """
         self._dline.draw(view)
+
+    def draw_bolt(self,view):
+        """
+        Draws the Bolts
+        """
+
+        for i in self._bolts:
+            i.draw(view)
 
 
     # HELPER METHODS FOR COLLISION DETECTION

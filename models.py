@@ -59,6 +59,9 @@ class Ship(GImage):
     pass
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
+    def get_ship_x(self):
+        return self.x
+
     # INITIALIZER TO CREATE AN ALIEN
     def __init__(self,a,b,source):
         super().__init__(x=a,y=b,width=SHIP_HEIGHT,height=SHIP_HEIGHT,source=source)
@@ -175,15 +178,27 @@ class Bolt(GRectangle):
 
     INSTANCE ATTRIBUTES:
         _velocity: The velocity in y direction [int or float]
+        _kind: The kind of bolt (str) ['ship' or 'alien']
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
     """
-    pass
+    
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
+    def get_kind_bolt(self):
+        return self._kind
+
+    def get_bolt_y(self):
+        return self.y
 
     # INITIALIZER TO SET THE VELOCITY
-
+    def __init__(self,x_pos, velocity, kind):
+        self._velocity = velocity
+        self._kind = kind
+        super().__init__(x = x_pos, y=SHIP_HEIGHT+SHIP_BOTTOM, width = BOLT_WIDTH, height = BOLT_HEIGHT, fillcolor = 'red')
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
+
+    def move_bolt(self):
+        self.y += self._velocity
 
 # IF YOU NEED ADDITIONAL MODEL CLASSES, THEY GO HERE
