@@ -61,17 +61,6 @@ class Wave(object):
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
     """
-
-    # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
-    def get_aliens(self):
-        "Getter for _aliens attibute in Wave"
-        return self._aliens
-
-    # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
-    def __init__(self):
-        self._ship = Ship(400,SHIP_BOTTOM,'ship.png')
-        self.create_aliens()
-
 #        assert is_instance(ship, Ship)
 #        if(type(aliens) != list):
 #            assert aliens == None
@@ -84,9 +73,23 @@ class Wave(object):
 #        assert is_instance(dline,GPath)
 #        assert is_instance(lives, int) and lives >= 0
 #        assert time >= 0
+
+    # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
+    def get_aliens(self):
+        "Getter for _aliens attibute in Wave"
+        return self._aliens
+
+    # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
+    def __init__(self):
+        self._ship = Ship(400,SHIP_BOTTOM,'ship.png')
+        self.create_aliens()
+        self.create_dline()
+
     def create_aliens(self):
         """
-        Creates the list of aliens in their respective positions.
+        Creates the list of aliens in their respective positions, drawing from
+        bottom up, left to right. Images of every two rows of aliens cycles through
+        ALIEN_IMAGES[n] where n goes from 0 to 2.
         """
         self._aliens =[]
         upper = GAME_HEIGHT-ALIEN_CEILING
@@ -106,6 +109,13 @@ class Wave(object):
             self._aliens.append(group)
         return self._aliens
 
+    def create_dline(self):
+        """
+        Creates the defensive line
+        """
+        self._dline = GPath(points=[0,DEFENSE_LINE,GAME_WIDTH,DEFENSE_LINE],\
+        linewidth=2, linecolor = "blue")
+        return self._dline
 
 
 
@@ -117,7 +127,8 @@ class Wave(object):
     def draw(self, view):
         """Calls the draw function for Ship, Aliens, Defensive Line, and Bolts"""
         self.draw_wave_aliens(view)
-        self._ship.draw(view)
+        self.draw_ship(view)
+        self.draw_dline(view)
 
     def draw_wave_aliens(self,view):
         """
@@ -128,6 +139,18 @@ class Wave(object):
                 alien=self.get_aliens()[row][column]
                 if (alien != None):
                     alien.draw(view) #drawing gimage
+
+    def draw_ship(self,view):
+        """
+        Draw the ship
+        """
+        self._ship.draw(view)
+
+    def draw_dline(self,view):
+        """
+        Draws the defensive line
+        """
+        self._dline.draw(view)
 
 
     # HELPER METHODS FOR COLLISION DETECTION
