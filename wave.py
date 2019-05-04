@@ -85,6 +85,7 @@ class Wave(object):
         self._ship = Ship(400,SHIP_BOTTOM,'ship.png')
         self.create_aliens()
         self.create_dline()
+        self._time = 0
 
     def create_aliens(self):
         """
@@ -119,8 +120,10 @@ class Wave(object):
         return self._dline
 
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
-    def update(self,input):
+    def update(self,input, dt):
+        self._time+=dt
         self.update_ship(input)
+        self.move_aliens_right()
 
     def update_ship(self,input):
         assert isinstance(input,GInput)
@@ -128,6 +131,21 @@ class Wave(object):
             self._ship.move_ship('left')
         elif input.is_key_down('right'):
             self._ship.move_ship('right')
+
+    def move_aliens_right(self):
+        """
+        Moves the aliens to the right until they hit the wall
+        """
+        right_end = GAME_WIDTH - ALIEN_H_SEP + ALIEN_WIDTH/2
+        left_end = 0 + ALIEN_H_SEP + ALIEN_WIDTH/2
+        if self._time >= ALIEN_SPEED:
+            for row in range(len(self.get_aliens())):
+                for column in range(len(self.get_aliens()[row])):
+                    alien=self.get_aliens()[row][column]
+                    if (alien != None):
+                        alien.x += ALIEN_H_WALK
+
+
 
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
     def draw(self, view):
