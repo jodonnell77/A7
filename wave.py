@@ -65,18 +65,6 @@ class Wave(object):
         _direction: the direction the aliens are currently moving
                     (string "left" or "right")
     """
-#        assert isinstance(ship, Ship)
-#        if(type(aliens) != list):
-#            assert aliens == None
-#        for i in range(len(aliens)):
-#            for ii in range(len(aliens[i])):
-#                assert isinstance(aliens[i][ii],Alien)
-#        assert isinstance(bolts, list)
-#        for i in bolts:
-#            assert isinstance(i,Bolt)
-#        assert isinstance(dline,GPath)
-#        assert isinstance(lives, int) and lives >= 0
-#        assert time >= 0
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
     def get_aliens(self):
