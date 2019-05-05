@@ -61,6 +61,7 @@ class Wave(object):
     and number of lives. If you make changes, please list the changes with the invariants.
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
+        _exists_player_bolt: boolean if a Ship Bolt is in the _bolts list
         _direction: the direction the aliens are currently moving
                     (string "left" or "right")
     """
@@ -88,6 +89,9 @@ class Wave(object):
         self.create_aliens()
         self.create_dline()
         self._time = 0
+        self._bolts = []
+        self._exists_player_bolt = False
+        self._direction = 'right'
 
     def create_aliens(self):
         """
@@ -128,6 +132,7 @@ class Wave(object):
         self._time+=dt
         self.update_ship(input)
         self.move_aliens(dt)
+        self.update_bolts(input)
 
     def update_ship(self,input):
         assert isinstance(input,GInput)
@@ -135,6 +140,20 @@ class Wave(object):
             self._ship.move_ship('left')
         elif input.is_key_down('right'):
             self._ship.move_ship('right')
+    
+
+    def update_bolts(self, input):
+
+        if input.is_key_down('z') and self._exists_player_bolt == False:
+            print('test')
+            self._bolts.append(Bolt(self._ship.get_ship_x(), BOLT_SPEED, 'player'))
+            self._exists_player_bolt = True
+
+        for i in range(len(self._bolts)):
+            self._bolts[i].move_bolt()
+            if self._bolts[i].get_kind_bolt() == 'player' and self._bolts[i].get_bolt_y() >= GAME_HEIGHT:
+                self._bolts.pop(i)
+                self._exists_player_bolt = False
 
     def move_aliens(self, dt):
         """
