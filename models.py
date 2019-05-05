@@ -118,8 +118,7 @@ class Alien(GImage):
     them below.
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
-        _direction: the direction the aliens are currently moving
-                    string "left" or "right"
+
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
@@ -143,7 +142,8 @@ class Alien(GImage):
         #assert is_instance(source,str)
         #assert source in ALIEN_IMAGES
         super().__init__(x=a,y=b,width=ALIEN_WIDTH,height=ALIEN_HEIGHT,source=source)
-        self._durection = "right"
+
+
     # METHOD TO CHECK FOR COLLISION (IF DESIRED)
 
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
