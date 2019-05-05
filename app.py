@@ -144,7 +144,7 @@ class Invaders(GameApp):
         self._determineState()
         self.STATE_INACTIVE_Helper()
         self.STATE_NEWWAVE_Helper()
-        self.STATE_ACTIVE_Helper()
+        self.STATE_ACTIVE_Helper(dt)
         self.STATE_PAUSED_Helper()
         self.STATE_CONTINUE_Helper()
         self.STATE_COMPLETE_Helper()
@@ -204,10 +204,10 @@ class Invaders(GameApp):
 
 
 
-    def STATE_ACTIVE_Helper(self):
+    def STATE_ACTIVE_Helper(self, dt):
         "Helper while state is STATE_ACTIVE"
         if(self._state == STATE_ACTIVE):
-            self._wave.update(self._input)
+            self._wave.update(self._input, dt)
 
 
 

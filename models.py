@@ -121,6 +121,7 @@ class Alien(GImage):
     them below.
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
+
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
@@ -143,13 +144,9 @@ class Alien(GImage):
         #assert is_instance(b,int) or is_instance(b,float)
         #assert is_instance(source,str)
         #assert source in ALIEN_IMAGES
-
-
-
-        #print (a)
-        #print (b)
-        #print (source)
         super().__init__(x=a,y=b,width=ALIEN_WIDTH,height=ALIEN_HEIGHT,source=source)
+
+
     # METHOD TO CHECK FOR COLLISION (IF DESIRED)
 
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
