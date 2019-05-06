@@ -130,6 +130,7 @@ class Wave(object):
         self.update_ship(input)
         self.move_aliens(dt)
         self.update_bolts(input)
+        self.collisions()
 
     def update_ship(self,input):
         assert isinstance(input,GInput)
@@ -311,3 +312,18 @@ class Wave(object):
 
 
     # HELPER METHODS FOR COLLISION DETECTION
+    def collisions(self):
+
+        for x in range(len(self._aliens)):
+            for y in range(len(self._aliens[x])):
+                if self._aliens[x][y] != None:
+                    for ii in self._bolts:
+                        if ii.get_kind_bolt() == 'player':
+                            if self._aliens[x][y].detect_ship_bolt_collision(ii):
+                                self._aliens[x][y] = None
+                                self._bolts.remove(ii)
+                                self._exists_player_bolt = False
+                                print('nice')
+                            
+
+

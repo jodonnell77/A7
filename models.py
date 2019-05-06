@@ -151,19 +151,31 @@ class Alien(GImage):
         
     def detect_ship_bolt_collision(self,bolt):
         """
-        This method checks to see if an bolt fired from the ship has struck the ship if that is true it will
+        This method checks to see if an bolt fired from the ship has struck an alien if that is true it will
         return True otherwise it will return False
 
         Parameter bolt: an instance of Class Bolt
-        Precondition: the Bolt is from a ship
+        Precondition: the Bolt is from a player
         """
-        assert bolt.get_kind_bolt() == 'ship'
+        assert bolt.get_kind_bolt() == 'player'
         pass
         
-        #top_left
-        #top_right
-        #bottom_left
-       # bottom_right
+        # [x,y]
+        top_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
+        top_right_bolt = [bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
+        bottom_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() - BOLT_HEIGHT/2]
+        bottom_right_bolt =[bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() - BOLT_HEIGHT/2]
+
+        if self.contains((top_left_bolt[0],top_left_bolt[1])):
+            return True
+        if self.contains((top_right_bolt[0],top_right_bolt[1])):
+            return True
+        if self.contains((bottom_left_bolt[0],bottom_left_bolt[1])):
+            return True
+        if self.contains((bottom_right_bolt[0],bottom_right_bolt[1])):
+            return True
+
+        return False
 
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
 
@@ -191,7 +203,7 @@ class Bolt(GRectangle):
 
     INSTANCE ATTRIBUTES:
         _velocity: The velocity in y direction [int or float]
-        _kind: The kind of bolt (str) ['ship' or 'alien']
+        _kind: The kind of bolt (str) ['player' or 'alien']
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
     """
@@ -203,6 +215,8 @@ class Bolt(GRectangle):
 
     def get_bolt_y(self):
         return self.y
+    def get_bolt_x(self):
+        return self.x
 
     # INITIALIZER TO SET THE VELOCITY
     def __init__(self,x_pos, y_pos, velocity, kind, fillcolor = 'red'):
