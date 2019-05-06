@@ -64,6 +64,8 @@ class Wave(object):
         _exists_player_bolt: boolean if a Ship Bolt is in the _bolts list
         _direction: the direction the aliens are currently moving
                     (string "left" or "right")
+        _steps_until_fire: the number of steps until the aliens fire (int)
+        _steps: the number of steps since last alien fired
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
@@ -80,7 +82,8 @@ class Wave(object):
         self._bolts = []
         self._exists_player_bolt = False
         self._direction = 'right'
-
+        self._steps = 0
+        self._steps_until_fire = None
     def create_aliens(self):
         """
         Creates the list of aliens in their respective positions, drawing from
@@ -91,15 +94,15 @@ class Wave(object):
         upper = GAME_HEIGHT-ALIEN_CEILING
         x=ALIEN_H_SEP + ALIEN_WIDTH*.5
         base = upper-(ALIEN_HEIGHT+ALIEN_V_SEP)*ALIEN_ROWS
-        n=0 #image looper
-        for up in range(ALIEN_ROWS):
+         #image looper
+        for across in range(ALIENS_IN_ROW):
             group = []
-            source = ALIEN_IMAGES[int(n)]
-            n+=0.5 ## maketwo same imagers per rows
-            if n == 3: #resets image loop
-                n=0
-            for across in range(ALIENS_IN_ROW):
-
+            n=0
+            for up in range(ALIEN_ROWS):
+                source = ALIEN_IMAGES[int(n)]
+                n+=0.5 ## maketwo same imagers per rows
+                if n == 3: #resets image loop
+                    n=0
                 group.append(Alien(x+(ALIEN_WIDTH+ALIEN_H_SEP)*(across)\
                 ,base + (ALIEN_HEIGHT+ALIEN_V_SEP)*(up),source))
             self._aliens.append(group)
@@ -128,20 +131,31 @@ class Wave(object):
             self._ship.move_ship('left')
         elif input.is_key_down('right'):
             self._ship.move_ship('right')
-    
+
 
     def update_bolts(self, input):
+        self.player_bolts(input)
+        self.alien_bolts()
 
-        if input.is_key_down('z') and self._exists_player_bolt == False:
-            print('test')
-            self._bolts.append(Bolt(self._ship.get_ship_x(), BOLT_SPEED, 'player'))
+    def player_bolts(self, input):
+        """
+        creates and moves the player bolts; removes it once it leaves the game window
+        """
+        if input.is_key_down('spacebar') and self._exists_player_bolt == False:
+            print('pew')
+            self._bolts.append(Bolt(self._ship.get_ship_x(),SHIP_BOTTOM + SHIP_HEIGHT,\
+             BOLT_SPEED, 'player'))
             self._exists_player_bolt = True
 
-        for i in range(len(self._bolts)):
-            self._bolts[i].move_bolt()
-            if self._bolts[i].get_kind_bolt() == 'player' and self._bolts[i].get_bolt_y() >= GAME_HEIGHT:
-                self._bolts.pop(i)
+        for bolt in self._bolts:
+            if bolt._kind == "player":
+                bolt.move_bolt_up()
+            if bolt.get_kind_bolt() == 'player' and bolt.get_bolt_y() >= GAME_HEIGHT:
+                self._bolts.remove(bolt)
                 self._exists_player_bolt = False
+                print("pew gone")
+
+
 
     def move_aliens(self, dt):
         """
@@ -168,7 +182,6 @@ class Wave(object):
                         down = True
 
         if down == True and self._time < dt:
-            #print("moving down")
             self.move_aliens_down()
             down = False
 
@@ -179,7 +192,8 @@ class Wave(object):
         right_end = GAME_WIDTH - ALIEN_H_SEP - ALIEN_WIDTH/2
         if self._time >= ALIEN_SPEED:
             self._time = 0
-            #print("moving right")
+            print("moving alien 1 step")
+            self._steps += 1
             for row in range(len(self.get_aliens())):
                 for column in range(len(self.get_aliens()[row])):
                     alien=self.get_aliens()[row][column]
@@ -195,12 +209,14 @@ class Wave(object):
         left_end = 0 + ALIEN_H_SEP + ALIEN_WIDTH/2
         if self._time >= ALIEN_SPEED:
             self._time = 0
-            #print("moving left")
+            print("moving alien 1 step")
+            self._steps += 1
             for row in range(len(self.get_aliens())):
                 for column in range(len(self.get_aliens()[row])):
                     alien=self.get_aliens()[row][column]
                     if (alien != None):
                         alien.x -= ALIEN_H_WALK
+
 
     def move_aliens_down(self):
         """
@@ -216,6 +232,34 @@ class Wave(object):
                     if self._direction == "left":
                         alien.x -= ALIEN_H_WALK
 
+    def alien_bolts(self):
+        """
+        Creates and moves the alien bolts; removes it once it leaves the game window
+        """
+        if self._steps== 0:
+            self._steps_until_fire = random.randint(1,BOLT_RATE)
+
+        if self._steps == self._steps_until_fire:
+            aliens = self.get_aliens()
+            y = []
+            #finds a random colum of aliens
+            column = random.randint(0, len(aliens) - 1 )
+            for i in aliens[column]:
+                y.append(i.y)
+                x=i.x
+
+            #creates a bolt at the coordinate of the sait alien
+            self._bolts.append(Bolt(x,min(y), BOLT_SPEED, "alien", "blue" ))
+            self._steps = 0 #bolt has just fired 0 steps ago
+
+
+        for bolt in self._bolts:
+            if bolt._kind == "alien":
+                bolt.move_bolt_down()
+
+            if bolt.get_kind_bolt() == 'alien' and bolt.get_bolt_y() < 0:
+                self._bolts.remove(bolt)
+                print("pew gone")
 
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
     def draw(self, view):
