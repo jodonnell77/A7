@@ -195,7 +195,7 @@ class Bolt(GRectangle):
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
     """
-    
+
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
     def get_kind_bolt(self):
@@ -205,16 +205,20 @@ class Bolt(GRectangle):
         return self.y
 
     # INITIALIZER TO SET THE VELOCITY
-    def __init__(self,x_pos, velocity, kind):
-        assert kind == 'ship' or kind =='alien'
-        assert isinstance(velocity,int) or isinstance(velocity,float)
-
+    def __init__(self,x_pos, y_pos, velocity, kind, fillcolor = 'red'):
+        """
+        Initializer for the Bolt Class
+        """
         self._velocity = velocity
         self._kind = kind
-        super().__init__(x = x_pos, y=SHIP_HEIGHT+SHIP_BOTTOM, width = BOLT_WIDTH, height = BOLT_HEIGHT, fillcolor = 'red')
+        super().__init__(x = x_pos, y=y_pos, width = BOLT_WIDTH, \
+        height = BOLT_HEIGHT, fillcolor=fillcolor)
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
 
-    def move_bolt(self):
+    def move_bolt_up(self):
         self.y += self._velocity
+
+    def move_bolt_down(self):
+        self.y -= self._velocity
 
 # IF YOU NEED ADDITIONAL MODEL CLASSES, THEY GO HERE
