@@ -70,11 +70,16 @@ class Wave(object):
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
     def get_aliens(self):
-        "Getter for _aliens attibute in Wave"
+        """
+        Getter for _aliens attibute in Wave
+        """
         return self._aliens
 
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
+        """
+        Ititializer for the Wave class
+        """
         self._ship = Ship(400,SHIP_BOTTOM,'ship.png')
         self.create_aliens()
         self.create_dline()
@@ -87,7 +92,7 @@ class Wave(object):
     def create_aliens(self):
         """
         Creates the list of aliens in their respective positions, drawing from
-        bottom up, left to right. Images of every two rows of aliens cycles through
+        left to right, upwards. Images of every two rows of aliens cycles through
         ALIEN_IMAGES[n] where n goes from 0 to 2.
         """
         self._aliens =[]
@@ -110,7 +115,8 @@ class Wave(object):
 
     def create_dline(self):
         """
-        Creates the defensive line
+        Creates the defensive line with x position spanning from 0 to the GAME_WIDTH,
+        and y position DEFENSE_LINE above 0
         """
         self._dline = GPath(points=[0,DEFENSE_LINE,GAME_WIDTH,DEFENSE_LINE],\
         linewidth=2, linecolor = "blue")
@@ -202,8 +208,7 @@ class Wave(object):
 
     def move_aliens_left(self):
         """
-        Moves the aliens to the left until they hit the wall. When the aliens
-        hit the left wall it changes their direction to right
+        Moves the aliens to the left until they hit the wall.
         """
 
         left_end = 0 + ALIEN_H_SEP + ALIEN_WIDTH/2
@@ -235,6 +240,11 @@ class Wave(object):
     def alien_bolts(self):
         """
         Creates and moves the alien bolts; removes it once it leaves the game window
+        If the alien has just fired 0 steps ago, _steps_until_fire will be assigned
+        a random integer value within 0 to BOLT_RATE. Once the alien has moved that
+        many _steps, a bolt will be formed. The bolt is formed by choosing a random
+        column of aliens and finding the minimum of all the values of the alien's
+        y position within that column.
         """
         if self._steps== 0:
             self._steps_until_fire = random.randint(1,BOLT_RATE)

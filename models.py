@@ -190,6 +190,9 @@ class Bolt(GRectangle):
 
     # INITIALIZER TO SET THE VELOCITY
     def __init__(self,x_pos, y_pos, velocity, kind, fillcolor = 'red'):
+        """
+        Initializer for the Bolt Class
+        """
         self._velocity = velocity
         self._kind = kind
         super().__init__(x = x_pos, y=y_pos, width = BOLT_WIDTH, \
