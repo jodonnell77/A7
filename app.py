@@ -181,6 +181,7 @@ class Invaders(GameApp):
             self._wave.draw(self.view)
             self._lives_numlabel.draw(self.view)
             self._score_label.draw(self.view)
+            self._miss_label.draw(self.view)
 
         if self._state == STATE_PAUSED:
             self._pause_message.draw(self.view)
@@ -229,15 +230,24 @@ class Invaders(GameApp):
             halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
             #updates Score
-            self._score = self._wave.get_dead_count() * POINTS_PER_KILL
+            #More score is rewarded for less missed shots
+            self._score = int(self._wave.get_dead_count()*POINTS_PER_KILL\
+            -self._wave.get_missed_shots()*MISS_PENALTY)
+
             self._score_label = GLabel(text='Score:'+str(self._score),\
             halign='right',valign='top',x=100,y=GAME_HEIGHT-25,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+
+            self._miss_label = GLabel(text='Missed:'\
+            +str(self._wave.get_missed_shots()), \
+            halign='right',valign='top',x=75,y=GAME_HEIGHT-50, \
+            fillcolor=[1,1,1,1],font_name='Arcade',font_size=20)
 
 
             self._wave.update(self._input, dt)
 
             #Checks if the ship is alive
+            #if Ship dies, move a life and reduce score by DEATH_PENALTY
             if self._wave.get_ship_alive() == False:
                 self._state = STATE_PAUSED
                 self._lives -= 1

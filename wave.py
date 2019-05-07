@@ -70,6 +70,7 @@ class Wave(object):
         _dead_count: number of aliens eliminated (int >= 0)
         _dline_breached: True or False if aliens have breached the dline
         _ship_alive: True or False if the ship is currenty alive
+        _missed_shots: number of missed shots (int >= 0)
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
@@ -78,7 +79,11 @@ class Wave(object):
         Getter for _aliens attibute in Wave
         """
         return self._aliens
-
+    def get_missed_shots(self):
+        """
+        Getter for _missed_shots in Wave
+        """
+        return self._missed_shots
     def get_ship_alive(self):
         """
         Getter for _ship_alive attibute in Wave
@@ -119,6 +124,7 @@ class Wave(object):
         self._ship_alive = True
         self._dline_breached = False
         self._dead_count = 0
+        self._missed_shots = 0
         self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
         self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
 
@@ -214,6 +220,7 @@ class Wave(object):
                 bolt.move_bolt_up()
             if bolt.get_kind_bolt() == 'player' and bolt.get_bolt_y() >= GAME_HEIGHT:
                 self._bolts.remove(bolt)
+                self._missed_shots += 1
                 self._exists_player_bolt = False
                 print("pew gone")
 

@@ -137,10 +137,12 @@ except:
     pass # Use original value
 
 ### ADD MORE CONSTANTS (PROPERLY COMMENTED) AS NECESSARY ###
-#the points per alien killed
+#the base points per alien killed
 POINTS_PER_KILL = 100
 #starting number of player lives
 PLAYER_LIVES = 3
 #How fast the aliens are to speed up
 #The new speed as a percentage of the previous speed.
 SPEED_UP = 0.95
+#SCORE PENALTIES FOR MISSING
+MISS_PENALTY = 25
