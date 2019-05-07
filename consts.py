@@ -71,7 +71,7 @@ BOLT_HEIGHT = 15
 # the number of pixels to move the bolt per update
 BOLT_SPEED  = 8
 # the number of ALIEN STEPS (not frames) between bolts
-BOLT_RATE   = 4
+BOLT_RATE   = 8
 
 ### BARRIER CONSTANTS ###
 # width of a defense barrier
@@ -143,6 +143,6 @@ POINTS_PER_KILL = 100
 PLAYER_LIVES = 3
 #How fast the aliens are to speed up
 #The new speed as a percentage of the previous speed.
-SPEED_UP = 0.95
+SPEED_UP = 0.97
 #SCORE PENALTIES FOR MISSING
 MISS_PENALTY = 25

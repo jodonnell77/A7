@@ -336,6 +336,10 @@ class Wave(object):
         for bolt in self._bolts:
             if bolt._kind == "alien":
                 bolt.move_bolt_down()
+                if bolt.x > self._ship.get_ship_x():
+                    bolt.move_bolt_side(random.randint(-3,-1))
+                if bolt.x < self._ship.get_ship_x():
+                    bolt.move_bolt_side(random.randint(1,3))
 
             if bolt.get_kind_bolt() == 'alien' and bolt.get_bolt_y() < 0:
                 self._bolts.remove(bolt)

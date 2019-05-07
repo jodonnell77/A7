@@ -293,13 +293,19 @@ class Bolt(GRectangle):
         """
         self.y -= self._velocity
 
+    def move_bolt_side(self, x_velocity):
+        """
+        Changes the x position of the ship
+        """
+        self.x += x_velocity
+
 class Barrier(GRectangle):
     """
     A class representing a defense barrier
 
     This barrier does not move the only attribute that matters is it health which starts at 10
     and it decreases by one every time it is hit. At 0 it disappears and leaves the ship
-    defensless. 
+    defensless.
 
     INSTANCE ATTRIBUTES:
         _lives: Number of lives left [int >= 0]
