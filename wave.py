@@ -372,6 +372,14 @@ class Wave(object):
 
         for i in self._bolts:
             i.draw(view)
+    def draw_barriers(self,view):
+        """
+        Draws the defense barriers
+        """
+        if (self._left_barrier != None):
+            self._left_barrier.draw(view)
+        if(self._right_barrier != None):
+            self._right_barrier.draw(view)
     # HELPER METHODS FOR COLLISION DETECTION
     def alien_collisions(self):
         """
