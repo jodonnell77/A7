@@ -255,7 +255,7 @@ class Wave(object):
         faster between steps
         """
         right_end = GAME_WIDTH - ALIEN_H_SEP - ALIEN_WIDTH/2
-        if self._time >= ALIEN_SPEED - SPEED_UP *self.get_dead_count():
+        if self._time >= ALIEN_SPEED*(SPEED_UP**self.get_dead_count()):
             self._time = 0
             self._steps += 1
             for row in range(len(self.get_aliens())):
@@ -272,7 +272,7 @@ class Wave(object):
         """
 
         left_end = 0 + ALIEN_H_SEP + ALIEN_WIDTH/2
-        if self._time >= ALIEN_SPEED - SPEED_UP *self.get_dead_count():
+        if self._time >= ALIEN_SPEED*(SPEED_UP**self.get_dead_count()):
             self._time = 0
             self._steps += 1
             for row in range(len(self.get_aliens())):

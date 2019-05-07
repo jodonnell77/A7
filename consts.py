@@ -141,6 +141,6 @@ except:
 POINTS_PER_KILL = 100
 #starting number of player lives
 PLAYER_LIVES = 3
-#the rate at which aliens speed up
-#the time at whch the number of seconds between steps decreases
-SPEED_UP = 0.015
+#How fast the aliens are to speed up
+#The new speed as a percentage of the previous speed.
+SPEED_UP = 0.95
