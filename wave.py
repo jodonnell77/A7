@@ -75,6 +75,10 @@ class Wave(object):
         """
         return self._aliens
 
+
+    def get_ship_alive(self):
+        return self._ship_alive
+
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
         """
@@ -89,6 +93,8 @@ class Wave(object):
         self._direction = 'right'
         self._steps = 0
         self._steps_until_fire = None
+        self._ship_alive = True
+
     def create_aliens(self):
         """
         Creates the list of aliens in their respective positions, drawing from
@@ -130,7 +136,8 @@ class Wave(object):
         self.update_ship(input)
         self.move_aliens(dt)
         self.update_bolts(input)
-        self.collisions()
+        self.ship_collisions()
+        self.alien_collisions()
 
     def update_ship(self,input):
         assert isinstance(input,GInput)
@@ -313,7 +320,7 @@ class Wave(object):
 
 
     # HELPER METHODS FOR COLLISION DETECTION
-    def collisions(self):
+    def alien_collisions(self):
 
         for x in range(len(self._aliens)):
             for y in range(len(self._aliens[x])):
@@ -326,5 +333,13 @@ class Wave(object):
                                 self._exists_player_bolt = False
                                 print('nice')
                             
+    def ship_collisions(self):
+
+        for ii in self._bolts:
+            if ii.get_kind_bolt() == 'alien':
+                if self._ship.detect_alien_bolt_collision(ii):
+                    self._bolts.remove(ii)
+                    self._ship_alive = False
+                    print("LLLLLLLLLLLLLL")
 
 

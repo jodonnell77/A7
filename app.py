@@ -69,7 +69,8 @@ class Invaders(GameApp):
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
     """
 
-    # DO NOT MAKE A NEW INITIALIZER!
+    # DO NOT MAKE A NEW INITIALIZER
+
 
     # THREE MAIN GAMEAPP METHODS
     def start(self):
@@ -89,6 +90,14 @@ class Invaders(GameApp):
         self._wave = None
         self._text = GLabel(text='Press \'s\' to play',halign='center',valign='top',x=400,y=400,fillcolor=[1,1,1,1]
         ,font_name='Arcade',font_size=80)
+        self._lives = 3
+        self._three_lives = GLabel(text='3 Lives Left',halign='right',valign='top',x=700,y=600,fillcolor=[1,1,1,1]
+        ,font_name='Arcade',font_size=40)
+        self._two_lives = GLabel(text='2 Lives Left',halign='right',valign='top',x=700,y=600,fillcolor=[1,1,1,1]
+        ,font_name='Arcade',font_size=40)
+        self._one_life = GLabel(text='1 Life Left',halign='right',valign='top',x=700,y=600,fillcolor=[1,1,1,1]
+        ,font_name='Arcade',font_size=40)
+        self._lives_text = self._three_lives
 
 
 
@@ -172,6 +181,8 @@ class Invaders(GameApp):
 
         if self._state != STATE_INACTIVE:
             self._wave.draw(self.view)
+            self._lives_text.draw(self.view)
+
 
 
     # HELPER METHODS FOR THE STATES GO HERE
@@ -229,4 +240,6 @@ class Invaders(GameApp):
 
     def STATE_COMPLETE_Helper(self):
         "Helper while state is STATE_COMPLETE"
-        pass
+        if((self._wave != None) and ( not self._wave.get_ship_alive() )):
+            self._lives -= 1
+            print('over')

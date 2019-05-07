@@ -91,12 +91,31 @@ class Ship(GImage):
         if self.x >= GAME_WIDTH- SHIP_WIDTH/2:
             self.x -= SHIP_MOVEMENT
 
-    def detect_alien_bolt_collision(self):
+    def detect_alien_bolt_collision(self,bolt):
         """
-        This method checks to see if an bolt fired from an alien ship has struck the ship if that is true it will
+        This method checks to see if an bolt fired from the ship has struck an alien if that is true it will
         return True otherwise it will return False
+
+        Parameter bolt: an instance of Class Bolt
+        Precondition: bolt is of class bolt
         """
-        pass
+        
+        # [x,y]
+        top_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
+        top_right_bolt = [bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
+        bottom_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() - BOLT_HEIGHT/2]
+        bottom_right_bolt =[bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() - BOLT_HEIGHT/2]
+
+        if self.contains((top_left_bolt[0],top_left_bolt[1])):
+            return True
+        if self.contains((top_right_bolt[0],top_right_bolt[1])):
+            return True
+        if self.contains((bottom_left_bolt[0],bottom_left_bolt[1])):
+            return True
+        if self.contains((bottom_right_bolt[0],bottom_right_bolt[1])):
+            return True
+
+        return False
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
 
 
@@ -155,11 +174,9 @@ class Alien(GImage):
         return True otherwise it will return False
 
         Parameter bolt: an instance of Class Bolt
-        Precondition: the Bolt is from a player
+        Precondition: bolt is of class bolt
         """
-        assert bolt.get_kind_bolt() == 'player'
-        pass
-        
+
         # [x,y]
         top_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
         top_right_bolt = [bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
