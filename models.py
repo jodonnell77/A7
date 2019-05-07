@@ -144,6 +144,10 @@ class Alien(GImage):
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
+    def get_alien_x(self):
+        return self.x
+    def get_alien_y(self):
+        return self.y
 
     # INITIALIZER TO CREATE AN ALIEN
     def __init__(self,a,b,source):

@@ -18,6 +18,7 @@ issue.  If you do not know, ask on Piazza and we will answer.
 from game2d import *
 from consts import *
 from models import *
+from introcs.geom import Point2, Matrix
 
 import random
 
@@ -140,6 +141,7 @@ class Wave(object):
         self.update_bolts(input)
         self.ship_collisions()
         self.alien_collisions()
+        self.alien_dline_collision()
 
 
     def update_ship(self,input):
@@ -345,3 +347,9 @@ class Wave(object):
                     self._bolts.remove(ii)
                     self._ship_alive = False
                     print("_ship_alive = false")
+
+    def alien_dline_collision(self):
+        for x in range(len(self._aliens)):
+            for y in range(len(self._aliens[x])):
+                if self._aliens[x][y] != None and self._aliens[x][y].get_alien_y() <= 100:
+                    print("memes")

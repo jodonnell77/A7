@@ -71,7 +71,7 @@ BOLT_HEIGHT = 16
 # the number of pixels to move the bolt per update
 BOLT_SPEED  = 10
 # the number of ALIEN STEPS (not frames) between bolts
-BOLT_RATE   = 3
+BOLT_RATE   = 5
 
 
 ### GAME CONSTANTS ###
