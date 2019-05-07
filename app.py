@@ -238,7 +238,7 @@ class Invaders(GameApp):
             halign='right',valign='top',x=100,y=GAME_HEIGHT-25,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
 
-            self._miss_label = GLabel(text='Missed:'\
+            self._miss_label = GLabel(text='Misses:'\
             +str(self._wave.get_missed_shots()), \
             halign='right',valign='top',x=75,y=GAME_HEIGHT-50, \
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=20)
