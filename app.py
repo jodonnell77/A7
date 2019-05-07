@@ -219,17 +219,25 @@ class Invaders(GameApp):
         "Helper while state is STATE_ACTIVE"
         if(self._state == STATE_ACTIVE):
             self._wave.update(self._input, dt)
-
+            print("active")
+            if self._wave.get_ship_alive() == False:
+                self._state = STATE_PAUSED
+                self._lives -= 1
+                print(self._lives)
 
 
 
 
     def STATE_PAUSED_Helper(self):
         "Helper while state is STATE_PAUSED"
-        pass
+        if self._state == STATE_PAUSED and self._lives > 0:
+            print("paused")
+            if self.input.is_key_down('s') and self._state == STATE_PAUSED:
+                self._state = STATE_ACTIVE
+                self._wave.set_ship_alive()
 
-
-
+        if self._state == STATE_PAUSED and self._lives == 0:
+            self._state == STATE_COMPLETE
 
     def STATE_CONTINUE_Helper(self):
         "Helper while state is STATE_CONTINUE"
@@ -240,6 +248,5 @@ class Invaders(GameApp):
 
     def STATE_COMPLETE_Helper(self):
         "Helper while state is STATE_COMPLETE"
-        if((self._wave != None) and ( not self._wave.get_ship_alive() )):
-            self._lives -= 1
-            print('over')
+        if self._lives == 0:
+            print("LOSER")

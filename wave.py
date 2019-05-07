@@ -79,6 +79,8 @@ class Wave(object):
     def get_ship_alive(self):
         return self._ship_alive
 
+    def set_ship_alive(self):
+        self._ship_alive = True
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
         """
@@ -334,7 +336,7 @@ class Wave(object):
                                 self._bolts.remove(ii)
                                 self._exists_player_bolt = False
 
-                            
+
     def ship_collisions(self):
 
         for ii in self._bolts:
@@ -342,4 +344,4 @@ class Wave(object):
                 if self._ship.detect_alien_bolt_collision(ii):
                     self._bolts.remove(ii)
                     self._ship_alive = False
-                    print("LLLLLLLLLLLLLL")
+                    print("_ship_alive = false")
