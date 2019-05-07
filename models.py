@@ -60,12 +60,26 @@ class Ship(GImage):
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
     def get_ship_x(self):
+        """
+        Getter for the x position of the Ship
+        """
         return self.x
-
-    # INITIALIZER TO CREATE AN ALIEN
+    # INITIALIZER TO CREATE A SHIP
     def __init__(self,a,b,source):
-        super().__init__(x=a,y=b,width=SHIP_HEIGHT,height=SHIP_HEIGHT,source=source)
+        """
+        This method initializes a Ship
 
+        Parameter: a - x position of the ship
+        Precondition: a must be an int > 0
+
+        Parameter: b - y position of the ship
+        Precondition: b must be an int > 0
+
+        Parameter: source - image file of the ship
+        Precondition: source must be a string referencing a valid image file
+        """
+
+        super().__init__(x=a,y=b,width=SHIP_HEIGHT,height=SHIP_HEIGHT,source=source)
     # METHODS TO MOVE THE SHIP AND CHECK FOR COLLISIONS
     def move_ship(self,direction):
         """
@@ -99,7 +113,7 @@ class Ship(GImage):
         Parameter bolt: an instance of Class Bolt
         Precondition: bolt is of class bolt
         """
-        
+
         # [x,y]
         top_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
         top_right_bolt = [bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
@@ -117,9 +131,6 @@ class Ship(GImage):
 
         return False
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
-
-
-
 class Alien(GImage):
     """
     A class to represent a single alien.
@@ -145,8 +156,15 @@ class Alien(GImage):
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
     def get_alien_x(self):
+        """
+        Getter for the x position of the Alien
+        """
         return self.x
+
     def get_alien_y(self):
+        """
+        Getter for the y position of the Alien
+        """
         return self.y
 
     # INITIALIZER TO CREATE AN ALIEN
@@ -171,7 +189,7 @@ class Alien(GImage):
 
 
     # METHOD TO CHECK FOR COLLISION (IF DESIRED)
-        
+
     def detect_ship_bolt_collision(self,bolt):
         """
         This method checks to see if an bolt fired from the ship has struck an alien if that is true it will
@@ -199,7 +217,6 @@ class Alien(GImage):
         return False
 
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
-
 
 class Bolt(GRectangle):
     """
@@ -236,24 +253,44 @@ class Bolt(GRectangle):
 
     def get_bolt_y(self):
         return self.y
+
     def get_bolt_x(self):
         return self.x
-
     # INITIALIZER TO SET THE VELOCITY
     def __init__(self,x_pos, y_pos, velocity, kind, fillcolor = 'red'):
         """
         Initializer for the Bolt Class
+
+        Parameter: x_pos is the x position of the Bolt
+        Precondition: x_pos is an int or float > 0
+
+        Parameter: y_pos is the y position of the Bolt
+        Precondition: y_pos is an int or float > 0
+
+        Parameter: velocity is the speed of the bolt
+        Precondition: velocity is an int or float > 0
+
+        Parameter: kind is the type of bolt
+        Precondition: kind is a string of either "alien" or "player"
+
+        Parameter: fillcolor is the color of the bolt
+        Precondition: fillcolor is a string referencing a valid color
         """
         self._velocity = velocity
         self._kind = kind
         super().__init__(x = x_pos, y=y_pos, width = BOLT_WIDTH, \
         height = BOLT_HEIGHT, fillcolor=fillcolor)
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
-
     def move_bolt_up(self):
+        """
+        Changes the y position of the ship at a rate positive self._velocity
+        """
         self.y += self._velocity
 
     def move_bolt_down(self):
+        """
+        Changes the y position of the ship at a rate negative self._velocity
+        """
         self.y -= self._velocity
 
 class Barrier(GRectangle):
