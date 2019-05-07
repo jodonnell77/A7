@@ -256,8 +256,9 @@ class Wave(object):
             #finds a random colum of aliens
             column = random.randint(0, len(aliens) - 1 )
             for i in aliens[column]:
-                y.append(i.y)
-                x=i.x
+                if(i != None):
+                    y.append(i.y)
+                    x=i.x
 
             #creates a bolt at the coordinate of the sait alien
             self._bolts.append(Bolt(x,min(y), BOLT_SPEED, "alien", "blue" ))
