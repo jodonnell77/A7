@@ -66,6 +66,7 @@ class Wave(object):
                     (string "left" or "right")
         _steps_until_fire: the number of steps until the aliens fire (int)
         _steps: the number of steps since last alien fired
+        _dead_count
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
@@ -81,6 +82,9 @@ class Wave(object):
 
     def set_ship_alive(self):
         self._ship_alive = True
+
+    def get_dead_count(self):
+        return self._dead_count
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
         """
@@ -96,6 +100,7 @@ class Wave(object):
         self._steps = 0
         self._steps_until_fire = None
         self._ship_alive = True
+        self._dead_count = 0
 
     def create_aliens(self):
         """
@@ -335,7 +340,7 @@ class Wave(object):
                                 self._aliens[x][y] = None
                                 self._bolts.remove(ii)
                                 self._exists_player_bolt = False
-
+                                self._dead_count += 1
 
     def ship_collisions(self):
 

@@ -67,6 +67,10 @@ class Invaders(GameApp):
     documented here.
 
     LIST MORE ATTRIBUTES (AND THEIR INVARIANTS) HERE IF NECESSARY
+    _lives
+    _lives_numlabel
+    _pause_message
+
     """
 
     # DO NOT MAKE A NEW INITIALIZER
@@ -94,8 +98,7 @@ class Invaders(GameApp):
         self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
         halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
         fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
-
-
+        self._pause_message = None
 
 
 
@@ -180,6 +183,11 @@ class Invaders(GameApp):
             self._wave.draw(self.view)
             self._lives_numlabel.draw(self.view)
 
+        if self._state == STATE_PAUSED:
+            self._pause_message.draw(self.view)
+
+        if self._state == STATE_COMPLETE:
+            self._pause_message.draw(self.view)
 
 
     # HELPER METHODS FOR THE STATES GO HERE
@@ -220,35 +228,49 @@ class Invaders(GameApp):
             halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
 
+
             self._wave.update(self._input, dt)
             print("active")
             if self._wave.get_ship_alive() == False:
                 self._state = STATE_PAUSED
                 self._lives -= 1
-                print(self._lives)
+                print(str(self._lives)+"lives")
 
 
-
+        if self._wave.get_dead_count() == ALIEN_ROWS * ALIENS_IN_ROW:
+            self._state = STATE_COMPLETE
 
     def STATE_PAUSED_Helper(self):
         "Helper while state is STATE_PAUSED"
         if self._state == STATE_PAUSED and self._lives > 0:
             print("paused")
+            self._pause_message =  GLabel(text="Press 'S' to continue",\
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
+            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+
             if self.input.is_key_down('s') and self._state == STATE_PAUSED:
-                self._state = STATE_ACTIVE
+                self._state = STATE_CONTINUE
                 self._wave.set_ship_alive()
 
         if self._state == STATE_PAUSED and self._lives == 0:
-            self._state == STATE_COMPLETE
+            self._state = STATE_COMPLETE
 
     def STATE_CONTINUE_Helper(self):
         "Helper while state is STATE_CONTINUE"
-        pass
-
+        if self._state == STATE_CONTINUE and self._lives > 0:
+            self._state = STATE_ACTIVE
 
 
 
     def STATE_COMPLETE_Helper(self):
         "Helper while state is STATE_COMPLETE"
-        if self._lives == 0:
-            print("LOSER")
+        if self._lives == 0 and self._state == STATE_COMPLETE:
+            print("lose")
+            self._pause_message =  GLabel(text="YOU LOSE!",\
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
+            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+
+        if self._lives > 0 and self._state == STATE_COMPLETE:
+            self._pause_message =  GLabel(text="YOU WIN!",\
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
+            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
