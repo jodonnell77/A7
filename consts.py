@@ -146,3 +146,6 @@ PLAYER_LIVES = 3
 SPEED_UP = 0.97
 #SCORE PENALTIES FOR MISSING
 MISS_PENALTY = 25
+#Controls how accurate are the heat seeking missles
+#int <= 5
+HEAT_SEEKING_DIFFICULTY = 4
