@@ -237,8 +237,8 @@ class Invaders(GameApp):
                 print(str(self._lives)+"lives")
 
 
-        if self._wave.get_dead_count() == ALIEN_ROWS * ALIENS_IN_ROW:
-            self._state = STATE_COMPLETE
+            if self._wave.get_dead_count() == ALIEN_ROWS * ALIENS_IN_ROW:
+                self._state = STATE_COMPLETE
 
     def STATE_PAUSED_Helper(self):
         "Helper while state is STATE_PAUSED"
