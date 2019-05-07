@@ -90,10 +90,10 @@ class Invaders(GameApp):
         self._wave = None
         self._text = GLabel(text='Press \'s\' to play',halign='center',valign='top',x=400,y=400,fillcolor=[1,1,1,1]
         ,font_name='Arcade',font_size=80)
-        self._lives = 4
+        self._lives = 3
         self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
-        halign='right',valign='top',x=700,y=600,fillcolor=[1,1,1,1]
-        ,font_name='Arcade',font_size=40)
+        halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
+        fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
 
 
 
@@ -215,6 +215,11 @@ class Invaders(GameApp):
     def STATE_ACTIVE_Helper(self, dt):
         "Helper while state is STATE_ACTIVE"
         if(self._state == STATE_ACTIVE):
+            #update life if lost a life
+            self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
+            halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
+            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+
             self._wave.update(self._input, dt)
             print("active")
             if self._wave.get_ship_alive() == False:
