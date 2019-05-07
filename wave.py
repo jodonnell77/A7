@@ -218,9 +218,11 @@ class Wave(object):
     def move_aliens_right(self):
         """
         Moves the aliens to the right until they hit the wall.
+        For every alien eliminated, all other aliens move SPEED_UP time
+        faster between steps
         """
         right_end = GAME_WIDTH - ALIEN_H_SEP - ALIEN_WIDTH/2
-        if self._time >= ALIEN_SPEED:
+        if self._time >= ALIEN_SPEED - SPEED_UP *self.get_dead_count():
             self._time = 0
             self._steps += 1
             for row in range(len(self.get_aliens())):
@@ -232,10 +234,12 @@ class Wave(object):
     def move_aliens_left(self):
         """
         Moves the aliens to the left until they hit the wall.
+        For every alien eliminated, all other aliens move SPEED_UP time
+        faster between steps
         """
 
         left_end = 0 + ALIEN_H_SEP + ALIEN_WIDTH/2
-        if self._time >= ALIEN_SPEED:
+        if self._time >= ALIEN_SPEED - SPEED_UP *self.get_dead_count():
             self._time = 0
             self._steps += 1
             for row in range(len(self.get_aliens())):
@@ -297,6 +301,7 @@ class Wave(object):
             if bolt.get_kind_bolt() == 'alien' and bolt.get_bolt_y() < 0:
                 self._bolts.remove(bolt)
 
+
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
     def draw(self, view):
         """Calls the draw function for Ship, Aliens, Defensive Line, and Bolts"""
@@ -338,6 +343,9 @@ class Wave(object):
 
     # HELPER METHODS FOR COLLISION DETECTION
     def alien_collisions(self):
+        """
+
+        """
 
         for x in range(len(self._aliens)):
             for y in range(len(self._aliens[x])):
@@ -351,7 +359,8 @@ class Wave(object):
                                 self._dead_count += 1
 
     def ship_collisions(self):
-
+        """
+        """
         for ii in self._bolts:
             if ii.get_kind_bolt() == 'alien':
                 if self._ship.detect_alien_bolt_collision(ii):
@@ -360,6 +369,8 @@ class Wave(object):
                     print("_ship_alive = false")
 
     def alien_dline_collision(self):
+        """
+        """
         for x in range(len(self._aliens)):
             for y in range(len(self._aliens[x])):
                 if self._aliens[x][y] != None and \

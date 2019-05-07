@@ -93,9 +93,10 @@ class Invaders(GameApp):
 
         self._state = STATE_INACTIVE
         self._wave = None
-        self._text = GLabel(text='Press \'s\' to play',halign='center',valign='top',x=400,y=400,fillcolor=[1,1,1,1]
-        ,font_name='Arcade',font_size=80)
-        self._lives = 3
+        self._text = GLabel(text='Press \'s\' to play',halign='center',\
+        valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,fillcolor=[1,1,1,1],\
+        font_name='Arcade',font_size=80)
+        self._lives = PLAYER_LIVES
         self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
         halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
         fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
@@ -211,14 +212,20 @@ class Invaders(GameApp):
             self._state = STATE_NEWWAVE
 
     def STATE_INACTIVE_Helper(self):
-        "Helper while state is STATE_INACTIVE"
+        """
+        Helper while state is STATE_INACTIVE""
+        """
+
+
         pass
 
 
 
 
     def STATE_NEWWAVE_Helper(self):
-        "Helper while state is STATE_NEWWAVE"
+        """
+        Helper while state is STATE_NEWWAVE
+        """
         if self._state == STATE_NEWWAVE:
             self._wave = Wave()
             self._state = STATE_ACTIVE
@@ -227,7 +234,9 @@ class Invaders(GameApp):
 
 
     def STATE_ACTIVE_Helper(self, dt):
-        "Helper while state is STATE_ACTIVE"
+        """
+        Helper while state is STATE_ACTIVE
+        """
         if(self._state == STATE_ACTIVE):
             #update life if lost a life
             self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
@@ -236,7 +245,7 @@ class Invaders(GameApp):
             #updates Score
             self._score = self._wave.get_dead_count() * POINTS_PER_KILL
             self._score_label = GLabel(text='Score:'+str(self._score),\
-            halign='right',valign='top',x=80,y=GAME_HEIGHT-25,\
+            halign='right',valign='top',x=100,y=GAME_HEIGHT-25,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
 
 
@@ -263,7 +272,9 @@ class Invaders(GameApp):
 
 
     def STATE_PAUSED_Helper(self):
-        "Helper while state is STATE_PAUSED"
+        """
+        Helper while state is STATE_PAUSED
+        """
         if self._state == STATE_PAUSED and self._lives > 0:
             print("paused")
             self._pause_message =  GLabel(text="Press 'S' to continue",\
@@ -278,7 +289,9 @@ class Invaders(GameApp):
             self._state = STATE_CONTINUE
 
     def STATE_CONTINUE_Helper(self):
-        "Helper while state is STATE_CONTINUE"
+        """
+        Helper while state is STATE_CONTINUE
+        """
         if self._state == STATE_CONTINUE and self._lives > 0:
             self._state = STATE_ACTIVE
 
@@ -287,7 +300,9 @@ class Invaders(GameApp):
 
 
     def STATE_COMPLETE_Helper(self):
-        "Helper while state is STATE_COMPLETE"
+        """
+        Helper while state is STATE_COMPLETE
+        """
         if self._state == STATE_COMPLETE and self._lives == 0:
             print("lose")
             self._pause_message =  GLabel(text="YOU RAN OUT OF LIVES!",\

@@ -28,7 +28,7 @@ SHIP_HEIGHT   = 44
 # the distance of the (bottom of the) ship from the bottom of the screen
 SHIP_BOTTOM   = 32
 # The number of pixels to move the ship per update
-SHIP_MOVEMENT = 5
+SHIP_MOVEMENT = 7
 # The number of lives a ship has
 SHIP_LIVES    = 3
 
@@ -67,11 +67,11 @@ ALIEN_SPEED = 1.0
 # the width of a laser bolt
 BOLT_WIDTH  = 4
 # the height of a laser bolt
-BOLT_HEIGHT = 16
+BOLT_HEIGHT = 15
 # the number of pixels to move the bolt per update
-BOLT_SPEED  = 10
+BOLT_SPEED  = 8
 # the number of ALIEN STEPS (not frames) between bolts
-BOLT_RATE   = 5
+BOLT_RATE   = 4
 
 
 ### GAME CONSTANTS ###
@@ -125,3 +125,8 @@ except:
 ### ADD MORE CONSTANTS (PROPERLY COMMENTED) AS NECESSARY ###
 #the points per alien killed
 POINTS_PER_KILL = 100
+#starting number of player lives
+PLAYER_LIVES = 3
+#the rate at which aliens speed up
+#the time at whch the number of seconds between steps decreases
+SPEED_UP = 0.015
