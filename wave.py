@@ -65,9 +65,11 @@ class Wave(object):
         _exists_player_bolt: boolean if a Ship Bolt is in the _bolts list
         _direction: the direction the aliens are currently moving
                     (string "left" or "right")
-        _steps_until_fire: the number of steps until the aliens fire (int)
-        _steps: the number of steps since last alien fired
-        _dead_count
+        _steps_until_fire: the number of steps until the aliens fire (int >= 0)
+        _steps: the number of steps since last alien fired (int >= 0)
+        _dead_count: number of aliens eliminated (int >= 0)
+        _dline_breached: True or False if aliens have breached the dline
+        _ship_alive: True or False if the ship is currenty alive
     """
 
     # GETTERS AND SETTERS (ONLY ADD IF YOU NEED THEM)
@@ -83,6 +85,9 @@ class Wave(object):
 
     def set_ship_alive(self):
         self._ship_alive = True
+
+    def get_dline_breached(self):
+        return self._dline_breached
 
     def get_dead_count(self):
         return self._dead_count
@@ -101,6 +106,7 @@ class Wave(object):
         self._steps = 0
         self._steps_until_fire = None
         self._ship_alive = True
+        self._dline_breached = False
         self._dead_count = 0
 
     def create_aliens(self):
@@ -356,5 +362,6 @@ class Wave(object):
     def alien_dline_collision(self):
         for x in range(len(self._aliens)):
             for y in range(len(self._aliens[x])):
-                if self._aliens[x][y] != None and self._aliens[x][y].get_alien_y() <= 100:
-                    print("memes")
+                if self._aliens[x][y] != None and \
+                self._aliens[x][y].get_alien_y() <= DEFENSE_LINE + ALIEN_HEIGHT/2:
+                    self._dline_breached = True

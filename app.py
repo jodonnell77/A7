@@ -101,9 +101,7 @@ class Invaders(GameApp):
         fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
         self._pause_message = None
         self._score = 0
-        self._score_label = GLabel(text='Score:'+str(self._score),\
-        halign='right',valign='top',x=75,y=GAME_HEIGHT-25,\
-        fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+
 
 
 
@@ -154,6 +152,7 @@ class Invaders(GameApp):
         Precondition: dt is a number (int or float)
         """
         # IMPLEMENT ME
+
         self._determineState()
         self.STATE_INACTIVE_Helper()
         self.STATE_NEWWAVE_Helper()
@@ -162,7 +161,7 @@ class Invaders(GameApp):
         self.STATE_CONTINUE_Helper()
         self.STATE_COMPLETE_Helper()
 
-        self._score += self._wave.get_dead_count()
+
 
 
     def draw(self):
@@ -187,6 +186,7 @@ class Invaders(GameApp):
         if self._state != STATE_INACTIVE:
             self._wave.draw(self.view)
             self._lives_numlabel.draw(self.view)
+            self._score_label.draw(self.view)
 
         if self._state == STATE_PAUSED:
             self._pause_message.draw(self.view)
@@ -194,7 +194,7 @@ class Invaders(GameApp):
         if self._state == STATE_COMPLETE:
             self._pause_message.draw(self.view)
 
-        self._score_label.draw(self.view)
+
 
     # HELPER METHODS FOR THE STATES GO HERE
     def _determineState(self):
@@ -233,14 +233,24 @@ class Invaders(GameApp):
             self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
             halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+            #updates Score
+            self._score = self._wave.get_dead_count() * POINTS_PER_KILL
+            self._score_label = GLabel(text='Score:'+str(self._score),\
+            halign='right',valign='top',x=80,y=GAME_HEIGHT-25,\
+            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
 
 
             self._wave.update(self._input, dt)
             print("active")
+
+            #Checks if the ship is alive
             if self._wave.get_ship_alive() == False:
                 self._state = STATE_PAUSED
                 self._lives -= 1
                 print(str(self._lives)+"lives")
+
+            if self._wave.get_dline_breached() == True:
+                self._state = STATE_COMPLETE
 
             #if dead count == number of starting aliens,
             #the player has completed the wave
@@ -265,24 +275,33 @@ class Invaders(GameApp):
                 self._wave.set_ship_alive()
 
         if self._state == STATE_PAUSED and self._lives == 0:
-            self._state = STATE_COMPLETE
+            self._state = STATE_CONTINUE
 
     def STATE_CONTINUE_Helper(self):
         "Helper while state is STATE_CONTINUE"
         if self._state == STATE_CONTINUE and self._lives > 0:
             self._state = STATE_ACTIVE
 
+        if self._state == STATE_CONTINUE and self._lives == 0:
+            self._state = STATE_COMPLETE
 
 
     def STATE_COMPLETE_Helper(self):
         "Helper while state is STATE_COMPLETE"
-        if self._lives == 0 and self._state == STATE_COMPLETE:
+        if self._state == STATE_COMPLETE and self._lives == 0:
             print("lose")
-            self._pause_message =  GLabel(text="YOU LOSE!",\
+            self._pause_message =  GLabel(text="YOU RAN OUT OF LIVES!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
 
-        if self._lives > 0 and self._state == STATE_COMPLETE:
+        if self._state == STATE_COMPLETE and self._lives > 0:
             self._pause_message =  GLabel(text="YOU WIN!",\
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
+            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+
+
+        if self._state == STATE_COMPLETE and self._wave.get_dline_breached() == True:
+            print("wow")
+            self._pause_message =  GLabel(text="THE ALIENS HAVE INVADED!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)

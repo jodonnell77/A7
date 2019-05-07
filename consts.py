@@ -123,3 +123,5 @@ except:
     pass # Use original value
 
 ### ADD MORE CONSTANTS (PROPERLY COMMENTED) AS NECESSARY ###
+#the points per alien killed
+POINTS_PER_KILL = 100
