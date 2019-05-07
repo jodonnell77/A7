@@ -139,6 +139,7 @@ class Wave(object):
         self.ship_collisions()
         self.alien_collisions()
 
+
     def update_ship(self,input):
         assert isinstance(input,GInput)
         if input.is_key_down('left'):
@@ -206,7 +207,6 @@ class Wave(object):
         right_end = GAME_WIDTH - ALIEN_H_SEP - ALIEN_WIDTH/2
         if self._time >= ALIEN_SPEED:
             self._time = 0
-            print("moving alien 1 step")
             self._steps += 1
             for row in range(len(self.get_aliens())):
                 for column in range(len(self.get_aliens()[row])):
@@ -222,7 +222,6 @@ class Wave(object):
         left_end = 0 + ALIEN_H_SEP + ALIEN_WIDTH/2
         if self._time >= ALIEN_SPEED:
             self._time = 0
-            print("moving alien 1 step")
             self._steps += 1
             for row in range(len(self.get_aliens())):
                 for column in range(len(self.get_aliens()[row])):
@@ -254,14 +253,19 @@ class Wave(object):
         column of aliens and finding the minimum of all the values of the alien's
         y position within that column.
         """
+
+
         if self._steps== 0:
             self._steps_until_fire = random.randint(1,BOLT_RATE)
 
         if self._steps == self._steps_until_fire:
             aliens = self.get_aliens()
             y = []
-            #finds a random colum of aliens
+            #finds a random column of aliens
             column = random.randint(0, len(aliens) - 1 )
+            while aliens[column].count(None) == ALIEN_ROWS:
+                column = random.randint(0, len(aliens) - 1 )
+
             for i in aliens[column]:
                 if(i != None):
                     y.append(i.y)
@@ -271,14 +275,12 @@ class Wave(object):
             self._bolts.append(Bolt(x,min(y), BOLT_SPEED, "alien", "blue" ))
             self._steps = 0 #bolt has just fired 0 steps ago
 
-
         for bolt in self._bolts:
             if bolt._kind == "alien":
                 bolt.move_bolt_down()
 
             if bolt.get_kind_bolt() == 'alien' and bolt.get_bolt_y() < 0:
                 self._bolts.remove(bolt)
-                print("pew gone")
 
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
     def draw(self, view):
@@ -331,15 +333,3 @@ class Wave(object):
                                 self._aliens[x][y] = None
                                 self._bolts.remove(ii)
                                 self._exists_player_bolt = False
-                                print('nice')
-                            
-    def ship_collisions(self):
-
-        for ii in self._bolts:
-            if ii.get_kind_bolt() == 'alien':
-                if self._ship.detect_alien_bolt_collision(ii):
-                    self._bolts.remove(ii)
-                    self._ship_alive = False
-                    print("LLLLLLLLLLLLLL")
-
-
