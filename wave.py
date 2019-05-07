@@ -108,6 +108,8 @@ class Wave(object):
         self._ship_alive = True
         self._dline_breached = False
         self._dead_count = 0
+        self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
+        self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
 
     def create_aliens(self):
         """
@@ -309,6 +311,7 @@ class Wave(object):
         self.draw_ship(view)
         self.draw_dline(view)
         self.draw_bolt(view)
+        self.draw_barriers(view)
 
     def draw_wave_aliens(self,view):
         """
@@ -339,6 +342,15 @@ class Wave(object):
 
         for i in self._bolts:
             i.draw(view)
+
+    def draw_barriers(self,view):
+        """
+        Draws the defense barriers
+        """
+        if (self._left_barrier != None):
+            self._left_barrier.draw(view)
+        if(self._right_barrier != None):
+            self._right_barrier.draw(view)
 
 
     # HELPER METHODS FOR COLLISION DETECTION

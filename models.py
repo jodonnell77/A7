@@ -256,4 +256,22 @@ class Bolt(GRectangle):
     def move_bolt_down(self):
         self.y -= self._velocity
 
-# IF YOU NEED ADDITIONAL MODEL CLASSES, THEY GO HERE
+class Barrier(GRectangle):
+    """
+    A class representing a defense barrier
+
+    This barrier does not move the only attribute that matters is it health which starts at 10
+    and it decreases by one every time it is hit. At 0 it disappears and leaves the ship
+    defensless. 
+
+    INSTANCE ATTRIBUTES:
+        _lives: Number of lives left [int >= 0]
+    """
+    def get_lives(self):
+        return self._lives
+    def decrease_lives(self):
+        self._lives -= 1
+
+    def __init__(self,x_pos,y_pos,height,width,lives,fillcolor='green'):
+        self._lives = lives
+        super().__init__(x=x_pos,y=y_pos,fillcolor=fillcolor, width=width,height=height)

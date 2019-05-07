@@ -73,6 +73,20 @@ BOLT_SPEED  = 8
 # the number of ALIEN STEPS (not frames) between bolts
 BOLT_RATE   = 4
 
+### BARRIER CONSTANTS ###
+# width of a defense barrier
+BARRIER_WIDTH = 90
+#height of barrier
+BARRIER_HEIGHT = 40
+#x-pos of left barrier
+LEFT_BARRIER_X = int(GAME_WIDTH*(1/3))
+#y-pos of left barrer
+LEFT_BARRIER_Y = 120
+#x-pos of right barrier
+RIGHT_BARRIER_X = int(GAME_WIDTH*(2/3))
+#y-pos of right barrier
+RIGHT_BARRIER_Y = 120
+
 
 ### GAME CONSTANTS ###
 
