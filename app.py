@@ -103,9 +103,6 @@ class Invaders(GameApp):
         self._pause_message = None
         self._score = 0
 
-
-
-
     def update(self,dt):
         """
         Animates a single frame in the game.
@@ -154,16 +151,12 @@ class Invaders(GameApp):
         """
         # IMPLEMENT ME
 
-        self._determineState()
         self.STATE_INACTIVE_Helper()
         self.STATE_NEWWAVE_Helper()
         self.STATE_ACTIVE_Helper(dt)
         self.STATE_PAUSED_Helper()
         self.STATE_CONTINUE_Helper()
         self.STATE_COMPLETE_Helper()
-
-
-
 
     def draw(self):
         """
@@ -194,48 +187,41 @@ class Invaders(GameApp):
 
         if self._state == STATE_COMPLETE:
             self._pause_message.draw(self.view)
-
-
-
     # HELPER METHODS FOR THE STATES GO HERE
-    def _determineState(self):
+    def STATE_INACTIVE_Helper(self):
         """
+        Helper while state is STATE_INACTIVE
+
         Determines the current state and assigns it to self._state
 
         This method checks for a key press, and if there is one, changes the state.
-        If the user presses 's' key at the welcome screen, changes state to STATE_NEWWAVE
-
-        via state.py demo
+        If the user presses 's' key at the welcome screen, changes state to STATE_NEWWAVE""
         """
-        # Welcome Screen
+        #Welcome screen
         if self.input.is_key_down('s') and self._state == STATE_INACTIVE:
             self._state = STATE_NEWWAVE
-
-    def STATE_INACTIVE_Helper(self):
-        """
-        Helper while state is STATE_INACTIVE""
-        """
-
-
-        pass
-
-
-
 
     def STATE_NEWWAVE_Helper(self):
         """
         Helper while state is STATE_NEWWAVE
+
+        This method creates a wave and changes state to STATE_ACTIVE
         """
         if self._state == STATE_NEWWAVE:
             self._wave = Wave()
             self._state = STATE_ACTIVE
 
-
-
-
     def STATE_ACTIVE_Helper(self, dt):
         """
         Helper while state is STATE_ACTIVE
+
+        This method:
+        -Displays the SCORE, PLAYER LIVES, and updates the Wave.
+        -Checks if the ship is currently alive and if any alien has
+         breached the DEFENSE_LINE.
+        -Checks how many aliens have been eliminated. If all aliens have been
+         eliminated then the player has won the game
+        -Checks if the player has pressed 'P'. If so, pauses the game.
         """
         if(self._state == STATE_ACTIVE):
             #update life if lost a life
@@ -250,7 +236,6 @@ class Invaders(GameApp):
 
 
             self._wave.update(self._input, dt)
-            print("active")
 
             #Checks if the ship is alive
             if self._wave.get_ship_alive() == False:
@@ -270,13 +255,17 @@ class Invaders(GameApp):
             if self.input.is_key_down('p'):
                 self._state = STATE_PAUSED
 
-
     def STATE_PAUSED_Helper(self):
         """
         Helper while state is STATE_PAUSED
+
+        If the player is paused and has more than 0 lives, gives the player
+        the option to continue the game. If the player presses 's',
+         passes the _state to STATE_CONTINUE
+
+        If the player is paused and has 0 lives, passes the _state to STATE_CONTINUE
         """
         if self._state == STATE_PAUSED and self._lives > 0:
-            print("paused")
             self._pause_message =  GLabel(text="Press 'S' to continue",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
@@ -291,6 +280,10 @@ class Invaders(GameApp):
     def STATE_CONTINUE_Helper(self):
         """
         Helper while state is STATE_CONTINUE
+
+        Checks the number of lives the player has. If > 0 lives then sets state to
+        STATE_ACTIVE and the player continues the game. If = 0 lives sets the _state
+        to STATE_COMPLETE
         """
         if self._state == STATE_CONTINUE and self._lives > 0:
             self._state = STATE_ACTIVE
@@ -298,13 +291,14 @@ class Invaders(GameApp):
         if self._state == STATE_CONTINUE and self._lives == 0:
             self._state = STATE_COMPLETE
 
-
     def STATE_COMPLETE_Helper(self):
         """
         Helper while state is STATE_COMPLETE
+
+        Displays a message if the player has won the game, ran out of lives, or
+        that the aliens have breached the defensive life
         """
         if self._state == STATE_COMPLETE and self._lives == 0:
-            print("lose")
             self._pause_message =  GLabel(text="YOU RAN OUT OF LIVES!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
@@ -313,10 +307,10 @@ class Invaders(GameApp):
             self._pause_message =  GLabel(text="YOU WIN!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
-
+            if self.input.is_key_down('s') and self._state == STATE_COMPLETE:
+                self._state == STATE_NEWWAVE
 
         if self._state == STATE_COMPLETE and self._wave.get_dline_breached() == True:
-            print("wow")
             self._pause_message =  GLabel(text="THE ALIENS HAVE INVADED!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
             fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)

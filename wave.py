@@ -79,17 +79,28 @@ class Wave(object):
         """
         return self._aliens
 
-
     def get_ship_alive(self):
+        """
+        Getter for _ship_alive attibute in Wave
+        """
         return self._ship_alive
 
     def set_ship_alive(self):
+        """
+        Setter for _ship_alive attibute in Wave
+        """
         self._ship_alive = True
 
     def get_dline_breached(self):
+        """
+        Getter for _dline_brached attibute in Wave
+        """
         return self._dline_breached
 
     def get_dead_count(self):
+        """
+        Getter for _dead_count attibute in Wave
+        """
         return self._dead_count
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
@@ -141,11 +152,17 @@ class Wave(object):
         self._dline = GPath(points=[0,DEFENSE_LINE,GAME_WIDTH,DEFENSE_LINE],\
         linewidth=2, linecolor = "blue")
         return self._dline
-
-
-
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
     def update(self,input, dt):
+        """
+        Calls update method for Ship, Aliens, Laser Bolts, and Dline
+
+        Parameter: input is a user input
+        Precondition: input is a valid GInput
+
+        Parameter dt: The time in seconds since last update
+        Precondition: dt is a number (int or float)
+        """
         self._time+=dt
         self.update_ship(input)
         self.move_aliens(dt)
@@ -154,22 +171,35 @@ class Wave(object):
         self.alien_collisions()
         self.alien_dline_collision()
 
-
     def update_ship(self,input):
+        """
+        Takes user input to update the position of the ship
+
+        Parameter: input is a user input
+        Precondition: input is a valid GInput
+        """
         assert isinstance(input,GInput)
         if input.is_key_down('left'):
             self._ship.move_ship('left')
         elif input.is_key_down('right'):
             self._ship.move_ship('right')
 
-
     def update_bolts(self, input):
+        """
+        Handles updates for player bolts and alien bolts
+
+        Parameter: input is a user input
+        Precondition: input is a valid GInput
+        """
         self.player_bolts(input)
         self.alien_bolts()
 
     def player_bolts(self, input):
         """
-        creates and moves the player bolts; removes it once it leaves the game window
+        Creates and moves the player bolts; Removes it once it leaves the game window
+
+        Parameter: input is a user input
+        Precondition: input is a valid GInput
         """
         if input.is_key_down('spacebar') and self._exists_player_bolt == False:
             print('pew')
@@ -185,12 +215,13 @@ class Wave(object):
                 self._exists_player_bolt = False
                 print("pew gone")
 
-
-
     def move_aliens(self, dt):
         """
         Determines whether to move aliens to the left or to the right. When the
         aliens hit the right wall it changes their direction to left and vice versa.
+
+        Parameter dt: The time in seconds since last update
+        Precondition: dt is a number (int or float)
         """
         down = False
         right_end = GAME_WIDTH - ALIEN_H_SEP - ALIEN_WIDTH/2
@@ -248,10 +279,9 @@ class Wave(object):
                     if (alien != None):
                         alien.x -= ALIEN_H_WALK
 
-
     def move_aliens_down(self):
         """
-        Moves the aliens down.
+        Method which moves the aliens downward
         """
         for row in range(len(self.get_aliens())):
             for column in range(len(self.get_aliens()[row])):
@@ -265,7 +295,7 @@ class Wave(object):
 
     def alien_bolts(self):
         """
-        Creates and moves the alien bolts; removes it once it leaves the game window
+        Creates and moves the alien bolts; removes it once it leaves the game window.
         If the alien has just fired 0 steps ago, _steps_until_fire will be assigned
         a random integer value within 0 to BOLT_RATE. Once the alien has moved that
         many _steps, a bolt will be formed. The bolt is formed by choosing a random
@@ -300,11 +330,11 @@ class Wave(object):
 
             if bolt.get_kind_bolt() == 'alien' and bolt.get_bolt_y() < 0:
                 self._bolts.remove(bolt)
-
-
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
     def draw(self, view):
-        """Calls the draw function for Ship, Aliens, Defensive Line, and Bolts"""
+        """
+        Calls the draw functions for Ship, Aliens, Defensive Line, and Bolts
+        """
         self.draw_wave_aliens(view)
         self.draw_ship(view)
         self.draw_dline(view)
@@ -339,14 +369,15 @@ class Wave(object):
 
         for i in self._bolts:
             i.draw(view)
-
-
     # HELPER METHODS FOR COLLISION DETECTION
     def alien_collisions(self):
         """
+        Checks each single in every row and column and determines if it
+        has collided with the ship's bolt. If it has, remove that particular alien
+        and remove the ship's bolt from _bolt.
 
+        For every removal, it adds 1 to _dead_count
         """
-
         for x in range(len(self._aliens)):
             for y in range(len(self._aliens[x])):
                 if self._aliens[x][y] != None:
@@ -360,6 +391,9 @@ class Wave(object):
 
     def ship_collisions(self):
         """
+        Checks if the ship has collided with the aliens' bolt. If it has, remove
+        the alien's bolt from _bolt and sets the ship's alive status to False in
+        _ship_alive.
         """
         for ii in self._bolts:
             if ii.get_kind_bolt() == 'alien':
@@ -370,6 +404,7 @@ class Wave(object):
 
     def alien_dline_collision(self):
         """
+        Checks every alien to see if it has crossed the defensive line
         """
         for x in range(len(self._aliens)):
             for y in range(len(self._aliens[x])):
