@@ -333,3 +333,13 @@ class Wave(object):
                                 self._aliens[x][y] = None
                                 self._bolts.remove(ii)
                                 self._exists_player_bolt = False
+
+                            
+    def ship_collisions(self):
+
+        for ii in self._bolts:
+            if ii.get_kind_bolt() == 'alien':
+                if self._ship.detect_alien_bolt_collision(ii):
+                    self._bolts.remove(ii)
+                    self._ship_alive = False
+                    print("LLLLLLLLLLLLLL")
