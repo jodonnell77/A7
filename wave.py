@@ -112,7 +112,7 @@ class Wave(object):
         Getter for _left_barrier in Wave
         """
         return self._left_barrier
-    
+
     def get_right_barrier():
         """
         Getter for _right_barrier in Wave
@@ -191,7 +191,7 @@ class Wave(object):
         self._dline = GPath(points=[0,DEFENSE_LINE,GAME_WIDTH,DEFENSE_LINE],\
         linewidth=2, linecolor = "white")
         return self._dline
-        
+
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
     def update(self,input, dt):
         """
@@ -243,7 +243,6 @@ class Wave(object):
         Precondition: input is a valid GInput
         """
         if input.is_key_down('spacebar') and self._exists_player_bolt == False:
-            print('pew')
             self._bolts.append(Bolt(self._ship.get_ship_x(),SHIP_BOTTOM + SHIP_HEIGHT,\
              BOLT_SPEED, 'player'))
             self._exists_player_bolt = True
@@ -255,7 +254,6 @@ class Wave(object):
                 self._bolts.remove(bolt)
                 self._missed_shots += 1
                 self._exists_player_bolt = False
-                print("pew gone")
 
     def move_aliens(self, dt):
         """
@@ -451,8 +449,7 @@ class Wave(object):
                 if self._ship.detect_alien_bolt_collision(ii):
                     self._bolts.remove(ii)
                     self._ship_alive = False
-                    print("_ship_alive = false")
-
+                    
     def alien_dline_collision(self):
         """
         Checks every alien to see if it has crossed the defensive line
