@@ -126,6 +126,7 @@ class Wave(object):
         if self._left_barrier == None:
             return 0
         return self._left_barrier.get_lives()
+
     def get_right_barrier_health(self):
         """
         Getter for _right_barrier health in Wave
@@ -133,6 +134,7 @@ class Wave(object):
         if self._right_barrier == None:
             return 0
         return self._right_barrier.get_lives()
+
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
         """
@@ -189,6 +191,7 @@ class Wave(object):
         self._dline = GPath(points=[0,DEFENSE_LINE,GAME_WIDTH,DEFENSE_LINE],\
         linewidth=2, linecolor = "white")
         return self._dline
+        
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
     def update(self,input, dt):
         """
