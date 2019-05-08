@@ -72,6 +72,7 @@ class Invaders(GameApp):
     _pause_message
     _score_label
     _score
+    _background
     """
 
     # DO NOT MAKE A NEW INITIALIZER
@@ -91,11 +92,14 @@ class Invaders(GameApp):
         (in attribute _text) saying that the user should press to play a game.
         """
 
+
         self._state = STATE_INACTIVE
+        self._background =GImage(x=GAME_WIDTH/2,y=GAME_HEIGHT/2,width=GAME_WIDTH,height=GAME_HEIGHT,\
+        source='space.png')
         self._wave = None
         self._text = GLabel(text='Press \'s\' to play',halign='center',\
-        valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,fillcolor=[1,1,1,1],\
-        font_name='Arcade',font_size=80)
+        valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,fillcolor=None,\
+        font_name='Arcade',font_size=80, linecolor = "white")
         self._lives = PLAYER_LIVES
         self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
         halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
@@ -171,13 +175,15 @@ class Invaders(GameApp):
         the example subcontroller.py from class.
         """
         # IMPLEMENT ME
+        self._background.draw(self.view)
+
         if self._state == STATE_INACTIVE:
             self._text.draw(self.view)
 
         if self._state == STATE_NEWWAVE:
             self._text = None
 
-        if self._state != STATE_INACTIVE:
+        if self._state == STATE_ACTIVE:
             self._wave.draw(self.view)
             self._lives_numlabel.draw(self.view)
             self._score_label.draw(self.view)
@@ -185,9 +191,17 @@ class Invaders(GameApp):
 
         if self._state == STATE_PAUSED:
             self._pause_message.draw(self.view)
-
+            self._wave.draw(self.view)
+            self._lives_numlabel.draw(self.view)
+            self._score_label.draw(self.view)
+            self._miss_label.draw(self.view)
+            
         if self._state == STATE_COMPLETE:
             self._pause_message.draw(self.view)
+            self._wave.draw(self.view)
+            self._score_label.draw(self.view)
+            self._lives_numlabel.draw(self.view)
+            self._miss_label.draw(self.view)
     # HELPER METHODS FOR THE STATES GO HERE
     def STATE_INACTIVE_Helper(self):
         """
@@ -228,7 +242,7 @@ class Invaders(GameApp):
             #update life if lost a life
             self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
             halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
-            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+            fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
             #updates Score
             #More score is rewarded for less missed shots
             self._score = int(self._wave.get_dead_count()*POINTS_PER_KILL\
@@ -236,12 +250,12 @@ class Invaders(GameApp):
 
             self._score_label = GLabel(text='Score:'+str(self._score),\
             halign='right',valign='top',x=100,y=GAME_HEIGHT-25,\
-            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+            fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
 
             self._miss_label = GLabel(text='Misses:'\
             +str(self._wave.get_missed_shots()), \
             halign='right',valign='top',x=75,y=GAME_HEIGHT-50, \
-            fillcolor=[1,1,1,1],font_name='Arcade',font_size=20)
+            fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
 
 
             self._wave.update(self._input, dt)
@@ -276,9 +290,9 @@ class Invaders(GameApp):
         If the player is paused and has 0 lives, passes the _state to STATE_CONTINUE
         """
         if self._state == STATE_PAUSED and self._lives > 0:
-            self._pause_message =  GLabel(text="Press 'S' to continue",\
+            self._pause_message =  GLabel(text="Ship hit: Press 'S' to continue",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
-            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+            fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
 
             if self.input.is_key_down('s') and self._state == STATE_PAUSED:
                 self._state = STATE_CONTINUE
@@ -311,16 +325,16 @@ class Invaders(GameApp):
         if self._state == STATE_COMPLETE and self._lives == 0:
             self._pause_message =  GLabel(text="YOU RAN OUT OF LIVES!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
-            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+            fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
 
         if self._state == STATE_COMPLETE and self._lives > 0:
             self._pause_message =  GLabel(text="YOU WIN!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
-            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+            fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
             if self.input.is_key_down('s') and self._state == STATE_COMPLETE:
                 self._state == STATE_NEWWAVE
 
         if self._state == STATE_COMPLETE and self._wave.get_dline_breached() == True:
             self._pause_message =  GLabel(text="THE ALIENS HAVE INVADED!",\
             halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
-            fillcolor=[1,1,1,1],font_name='Arcade',font_size=40)
+            fillcolor=None,font_name='Arcade',font_size=40,linecolor = "white")
