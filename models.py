@@ -313,10 +313,11 @@ class Barrier(GImage):
     """
     def get_lives(self):
         return self._lives
+        
     def decrease_lives(self):
         self._lives -= 1
 
-    def __init__(self,x_pos,y_pos,height,width,lives,fillcolor="green"):
+    def __init__(self,x_pos,y_pos,height,width,lives):
         self._lives = lives
         super().__init__(x=x_pos,y=y_pos, width=width,height=height,source = "rock.png")
 
