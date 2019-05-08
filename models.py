@@ -131,6 +131,7 @@ class Ship(GImage):
 
         return False
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
+    
 class Alien(GImage):
     """
     A class to represent a single alien.

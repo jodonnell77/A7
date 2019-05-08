@@ -73,6 +73,7 @@ class Invaders(GameApp):
     _score_label
     _score
     _background
+    _infotext
     """
 
     # DO NOT MAKE A NEW INITIALIZER
@@ -100,6 +101,11 @@ class Invaders(GameApp):
         self._text = GLabel(text='Press \'s\' to play',halign='center',\
         valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,fillcolor=None,\
         font_name='Arcade',font_size=80, linecolor = "white")
+
+        self._infotext = GLabel(text='BEWARE: Aliens have guided missiles',halign='center',\
+        valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2.5,fillcolor=None,\
+        font_name='Arcade',font_size=30, linecolor = "white")
+
         self._lives = PLAYER_LIVES
         self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
         halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
@@ -179,6 +185,7 @@ class Invaders(GameApp):
 
         if self._state == STATE_INACTIVE:
             self._text.draw(self.view)
+            self._infotext.draw(self.view)
 
         if self._state == STATE_NEWWAVE:
             self._text = None
@@ -240,17 +247,17 @@ class Invaders(GameApp):
         """
         if(self._state == STATE_ACTIVE):
             #update life if lost a life
-            self._lives_numlabel = GLabel(text=str(self._lives)+' Lives Left',\
-            halign='right',valign='top',x=GAME_WIDTH-25,y=GAME_HEIGHT-25,\
+            self._lives_numlabel = GLabel(text=str(self._lives)+' Lives',\
+            halign='right',valign='top',x=GAME_WIDTH-75,y=GAME_HEIGHT-25,\
             fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
             #updates Score
             #More score is rewarded for less missed shots
             self._score = int(self._wave.get_dead_count()*POINTS_PER_KILL\
             -self._wave.get_missed_shots()*MISS_PENALTY)
-            self._score_label = GLabel(text='Score:'+str(self._score),\
+            self._score_label = GLabel(text='Score: '+str(self._score),\
             halign='right',valign='top',x=100,y=GAME_HEIGHT-25,\
             fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
-            self._miss_label = GLabel(text='Misses:'\
+            self._miss_label = GLabel(text='Misses: '\
             +str(self._wave.get_missed_shots()), \
             halign='right',valign='top',x=75,y=GAME_HEIGHT-50, \
             fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
