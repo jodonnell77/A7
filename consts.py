@@ -75,9 +75,13 @@ BOLT_RATE   = 8
 
 ### BARRIER CONSTANTS ###
 # width of a defense barrier
+<<<<<<< HEAD
 BARRIER_WIDTH = 70
+=======
+BARRIER_WIDTH = 100
+>>>>>>> 8a0ed34a305bd316c875cd9de8582714869cf87a
 #height of barrier
-BARRIER_HEIGHT = 50
+BARRIER_HEIGHT = 60
 #x-pos of left barrier
 LEFT_BARRIER_X = int(GAME_WIDTH*(1/3))
 #y-pos of left barrer
