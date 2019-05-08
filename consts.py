@@ -77,9 +77,9 @@ BOLT_RATE   = 8
 #barrier hit points
 BARRIER_HP = 10
 # width of a defense barrier
-BARRIER_WIDTH = 90
+BARRIER_WIDTH = 100
 #height of barrier
-BARRIER_HEIGHT = 50
+BARRIER_HEIGHT = 60
 #x-pos of left barrier
 LEFT_BARRIER_X = int(GAME_WIDTH*(1/3))
 #y-pos of left barrer
@@ -151,3 +151,5 @@ MISS_PENALTY = 25
 #Controls how accurate are the heat seeking missles
 #int <= 5
 HEAT_SEEKING_DIFFICULTY = 5
+#Durability of the asteroid
+ASTEROID_LIFE = 20

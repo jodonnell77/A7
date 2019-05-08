@@ -151,8 +151,10 @@ class Wave(object):
         self._dline_breached = False
         self._dead_count = 0
         self._missed_shots = 0
-        self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,BARRIER_HP)
-        self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,BARRIER_HP)
+        self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,\
+        BARRIER_HEIGHT,BARRIER_WIDTH,ASTEROID_LIFE)
+        self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,\
+        BARRIER_HEIGHT,BARRIER_WIDTH,ASTEROID_LIFE)
 
 
     def create_aliens(self):
@@ -343,7 +345,6 @@ class Wave(object):
 
         if self._steps== 0:
             self._steps_until_fire = random.randint(1,BOLT_RATE)
-
         if self._steps == self._steps_until_fire:
             aliens = self.get_aliens()
             y = []
@@ -356,11 +357,9 @@ class Wave(object):
                 if(i != None):
                     y.append(i.y)
                     x=i.x
-
             #creates a bolt at the coordinate of the sait alien
             self._bolts.append(Bolt(x,min(y), BOLT_SPEED, "alien", "purple" ))
             self._steps = 0 #bolt has just fired 0 steps ago
-
         for bolt in self._bolts:
             if bolt._kind == "alien":
                 bolt.move_bolt_down()
@@ -368,7 +367,6 @@ class Wave(object):
                     bolt.move_bolt_side(random.randint(-HEAT_SEEKING_DIFFICULTY,0))
                 if bolt.x < self._ship.get_ship_x():
                     bolt.move_bolt_side(random.randint(0,HEAT_SEEKING_DIFFICULTY))
-
             if bolt.get_kind_bolt() == 'alien' and bolt.get_bolt_y() < 0:
                 self._bolts.remove(bolt)
     # DRAW METHOD TO DRAW THE SHIP, ALIENS, DEFENSIVE LINE AND BOLTS
@@ -481,9 +479,9 @@ class Wave(object):
                     self._bolts.remove(i)
                     if i.get_kind_bolt() == 'player':
                         self._exists_player_bolt = False
-        if(self._left_barrier != None):    
+        if(self._left_barrier != None):
             if self._left_barrier.get_lives() == 0:
                 self._left_barrier = None
-        if(self._right_barrier != None):    
+        if(self._right_barrier != None):
             if self._right_barrier.get_lives() == 0:
                 self._right_barrier = None
