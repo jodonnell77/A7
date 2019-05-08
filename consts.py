@@ -74,6 +74,8 @@ BOLT_SPEED  = 8
 BOLT_RATE   = 8
 
 ### BARRIER CONSTANTS ###
+#barrier hit points
+BARRIER_HP = 10
 # width of a defense barrier
 BARRIER_WIDTH = 90
 #height of barrier

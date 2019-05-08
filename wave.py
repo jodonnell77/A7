@@ -106,6 +106,33 @@ class Wave(object):
         Getter for _dead_count attibute in Wave
         """
         return self._dead_count
+
+    def get_left_barrier():
+        """
+        Getter for _left_barrier in Wave
+        """
+        return self._left_barrier
+    
+    def get_right_barrier():
+        """
+        Getter for _right_barrier in Wave
+        """
+        return self._right_barrier
+
+    def get_left_barrier_health(self):
+        """
+        Getter for _left_barrier health in Wave
+        """
+        if self._left_barrier == None:
+            return 0
+        return self._left_barrier.get_lives()
+    def get_right_barrier_health(self):
+        """
+        Getter for _right_barrier health in Wave
+        """
+        if self._right_barrier == None:
+            return 0
+        return self._right_barrier.get_lives()
     # INITIALIZER (standard form) TO CREATE SHIP AND ALIENS
     def __init__(self):
         """
@@ -124,8 +151,8 @@ class Wave(object):
         self._dline_breached = False
         self._dead_count = 0
         self._missed_shots = 0
-        self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
-        self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
+        self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,BARRIER_HP)
+        self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,BARRIER_HP)
 
 
     def create_aliens(self):
