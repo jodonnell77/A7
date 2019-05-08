@@ -195,7 +195,7 @@ class Invaders(GameApp):
             self._lives_numlabel.draw(self.view)
             self._score_label.draw(self.view)
             self._miss_label.draw(self.view)
-            
+
         if self._state == STATE_COMPLETE:
             self._pause_message.draw(self.view)
             self._wave.draw(self.view)
@@ -247,34 +247,24 @@ class Invaders(GameApp):
             #More score is rewarded for less missed shots
             self._score = int(self._wave.get_dead_count()*POINTS_PER_KILL\
             -self._wave.get_missed_shots()*MISS_PENALTY)
-
             self._score_label = GLabel(text='Score:'+str(self._score),\
             halign='right',valign='top',x=100,y=GAME_HEIGHT-25,\
             fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
-
             self._miss_label = GLabel(text='Misses:'\
             +str(self._wave.get_missed_shots()), \
             halign='right',valign='top',x=75,y=GAME_HEIGHT-50, \
             fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
-
-
             self._wave.update(self._input, dt)
-
-            #Checks if the ship is alive
-            #if Ship dies, move a life and reduce score by DEATH_PENALTY
+            #Checks if the ship is alive, if ship dies,reduce score by DEATH_PENALTY
             if self._wave.get_ship_alive() == False:
                 self._state = STATE_PAUSED
                 self._lives -= 1
                 print(str(self._lives)+"lives")
-
             if self._wave.get_dline_breached() == True:
                 self._state = STATE_COMPLETE
-
-            #if dead count == number of starting aliens,
-            #the player has completed the wave
+            #if dead count == number of starting aliens,the player has completed the wave
             if self._wave.get_dead_count() == ALIEN_ROWS * ALIENS_IN_ROW:
                 self._state = STATE_COMPLETE
-
             #player input pause
             if self.input.is_key_down('p'):
                 self._state = STATE_PAUSED
