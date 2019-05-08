@@ -1,0 +1,26 @@
+John O'Donnel(jro79) and Anthony Nguyen (an523)
+
+
+###EXTENSIONS
+
+
+#TRACKING SCORE
+Tracks the players score in the top left corner. Each Alien elimination is POINTS_PER_KILL and each missed shot has a score penalty of MISS_PENALTY
+
+#DEFENSE BARRIERS
+Class Barriers in Models.py that absorbs shots from both aliens and player; has a durability of ASTEROID_LIFE number of shots before it is destroyed. 
+
+#GUIDED LASERS
+Shots curve toward the ship at a horizontal rate of (up to) HEAT_SEEKING_DIFFICULTY pixels per frame. If the x position of the current shot is greater than the x position of the ship, move in the negative x direction. If the x position of the current shot is less than the x position of the ship, move in the positive x direction. 
+
+
+
+#DYNAMICALLY SPED UP ALIENS
+For each alien elminated, every other alien moves at a new speed of SPEED_UP (a percent value) of its previous speed.
+
+#ARTWORK
+BACKGROUND 
+https://www.pexels.com/photo/starry-sky-998641/
+
+ASTEROID SPRITE
+Rocks by Écrivain, Licensed CC0 PUBLIC DOMAIN
