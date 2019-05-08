@@ -95,8 +95,6 @@ class Invaders(GameApp):
         invariants. When done, it sets the _state to STATE_INACTIVE and create a message
         (in attribute _text) saying that the user should press to play a game.
         """
-
-
         self._state = STATE_INACTIVE
         self._background =GImage(x=GAME_WIDTH/2,y=GAME_HEIGHT/2,width=GAME_WIDTH,height=GAME_HEIGHT,\
         source='space.png')
@@ -196,14 +194,12 @@ class Invaders(GameApp):
         or you need to add a draw method to class Wave.  We suggest the latter.  See
         the example subcontroller.py from class.
         """
-        # IMPLEMENT ME
         self._background.draw(self.view)
         if self._state == STATE_INACTIVE:
             self._text.draw(self.view)
             self._infotext.draw(self.view)
         if self._state == STATE_NEWWAVE:
             self._text = None
-
         if self._state == STATE_ACTIVE:
             self._wave.draw(self.view)
             self._lives_numlabel.draw(self.view)
@@ -211,7 +207,6 @@ class Invaders(GameApp):
             self._miss_label.draw(self.view)
             self._left_b_label.draw(self.view)
             self._right_b_label.draw(self.view)
-
         if self._state == STATE_PAUSED:
             self._pause_message.draw(self.view)
             self._wave.draw(self.view)
@@ -272,8 +267,7 @@ class Invaders(GameApp):
             self._lives_numlabel = GLabel(text=str(self._lives)+' Lives',\
             halign='right',valign='top',x=GAME_WIDTH-75,y=GAME_HEIGHT-25,\
             fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
-            #updates Score
-            #More score is rewarded for less missed shots
+            #updates Score #more score is rewarded for less missed shots
             self._score = int(self._wave.get_dead_count()*POINTS_PER_KILL\
             -self._wave.get_missed_shots()*MISS_PENALTY)
             self._score_label = GLabel(text='Score: '+str(self._score),\
@@ -288,7 +282,6 @@ class Invaders(GameApp):
             if self._wave.get_ship_alive() == False:
                 self._state = STATE_PAUSED
                 self._lives -= 1
-                print(str(self._lives)+"lives")
             if self._wave.get_dline_breached() == True:
                 self._state = STATE_COMPLETE
             #if dead count == number of starting aliens,the player has completed the wave
@@ -298,7 +291,6 @@ class Invaders(GameApp):
             if self.input.is_key_down('p'):
                 self._state = STATE_PAUSED
                 self._pause = 1
-
             self.update_barriers()
 
     def update_barriers(self):
