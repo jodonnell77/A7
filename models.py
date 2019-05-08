@@ -131,7 +131,7 @@ class Ship(GImage):
 
         return False
     # ADD MORE METHODS (PROPERLY SPECIFIED) AS NECESSARY
-    
+
 class Alien(GImage):
     """
     A class to represent a single alien.
@@ -300,7 +300,7 @@ class Bolt(GRectangle):
         """
         self.x += x_velocity
 
-class Barrier(GRectangle):
+class Barrier(GImage):
     """
     A class representing a defense barrier
 
@@ -318,11 +318,11 @@ class Barrier(GRectangle):
 
     def __init__(self,x_pos,y_pos,height,width,lives,fillcolor="green"):
         self._lives = lives
-        super().__init__(x=x_pos,y=y_pos,fillcolor=fillcolor, width=width,height=height)
+        super().__init__(x=x_pos,y=y_pos, width=width,height=height,source = "rock.png")
 
     def detect_bolt_collision(self,bolt):
         """
-        This method checks to see if an bolt fired from the ship has struck an alien if that is true it will
+        This method checks to see if a bolt fired from the ship or alien has struck the barrier if that is true it will
         return True otherwise it will return False
 
         Parameter bolt: an instance of Class Bolt
