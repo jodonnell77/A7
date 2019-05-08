@@ -213,7 +213,7 @@ class Invaders(GameApp):
             self._score_label.draw(self.view)
             self._miss_label.draw(self.view)
             self._left_b_label.draw(self.view)
-            self._right_b_label.draw(self.view) 
+            self._right_b_label.draw(self.view)
         if self._state == STATE_COMPLETE:
             self._pause_message.draw(self.view)
             self._wave.draw(self.view)
@@ -224,7 +224,7 @@ class Invaders(GameApp):
             self._right_b_label.draw(self.view)
 
 
-    
+
     # HELPER METHODS FOR THE STATES GO HERE
     def STATE_INACTIVE_Helper(self):
         """
@@ -299,25 +299,28 @@ class Invaders(GameApp):
             self._left_b_hp = self._wave.get_left_barrier_health()
             self._left_b_label = GLabel(text='L-Barrier HP:'\
             +str(self._left_b_hp), \
-            halign='right',valign='top',x=250,y=GAME_HEIGHT-25, \
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT-25, \
             fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
+
         if self._wave.get_right_barrier != None:
             self._right_b_hp = self._wave.get_right_barrier_health()
             self._right_b_label = GLabel(text='R-Barrier HP:'\
             +str(self._right_b_hp), \
-            halign='right',valign='top',x=400,y=GAME_HEIGHT-25, \
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT-50, \
             fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
+
         if self._wave.get_left_barrier == None:
             self._left_b_hp = 0
             self._left_b_label = GLabel(text='L-Barrier HP:'\
             +str(0), \
-            halign='right',valign='top',x=250,y=GAME_HEIGHT-25, \
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT-25, \
             fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
+
         if self._wave.get_right_barrier == None:
             self._right_b_hp = 0
             self._right_b_label = GLabel(text='R-Barrier HP:'\
             +str(0), \
-            halign='right',valign='top',x=400,y=GAME_HEIGHT-25, \
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT-50, \
             fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
 
     def STATE_PAUSED_Helper(self):
