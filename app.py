@@ -74,6 +74,9 @@ class Invaders(GameApp):
     _score
     _background
     _infotext
+    _pause
+    _right_b_hp
+    _left_b_hp
     """
 
     # DO NOT MAKE A NEW INITIALIZER
@@ -98,6 +101,7 @@ class Invaders(GameApp):
         self._background =GImage(x=GAME_WIDTH/2,y=GAME_HEIGHT/2,width=GAME_WIDTH,height=GAME_HEIGHT,\
         source='space.png')
         self._wave = None
+        self._pause = 0
         self._text = GLabel(text='Press \'s\' to play',halign='center',\
         valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,fillcolor=None,\
         font_name='Arcade',font_size=80, linecolor = "white")
@@ -122,6 +126,8 @@ class Invaders(GameApp):
         +str(self._right_b_hp), \
         halign='right',valign='top',x=400,y=GAME_HEIGHT-50, \
         fillcolor=None,font_name='Arcade',font_size=20, linecolor = "white")
+
+
 
     def update(self,dt):
         """
@@ -291,6 +297,7 @@ class Invaders(GameApp):
             #player input pause
             if self.input.is_key_down('p'):
                 self._state = STATE_PAUSED
+                self._pause = 1
 
             self.update_barriers()
 
@@ -341,6 +348,15 @@ class Invaders(GameApp):
             if self.input.is_key_down('s') and self._state == STATE_PAUSED:
                 self._state = STATE_CONTINUE
                 self._wave.set_ship_alive()
+
+        if self._state == STATE_PAUSED and self._pause == 1:
+            self._pause_message =  GLabel(text="Paused: Press 'S' to continue",\
+            halign='right',valign='top',x=GAME_WIDTH/2,y=GAME_HEIGHT/2,\
+            fillcolor=None,font_name='Arcade',font_size=40, linecolor = "white")
+
+            if self.input.is_key_down('s') and self._state == STATE_PAUSED:
+                self._state = STATE_CONTINUE
+                self._pause = 0
 
         if self._state == STATE_PAUSED and self._lives == 0:
             self._state = STATE_CONTINUE
