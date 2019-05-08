@@ -124,8 +124,10 @@ class Wave(object):
         self._dline_breached = False
         self._dead_count = 0
         self._missed_shots = 0
-        self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
-        self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
+        self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,\
+        BARRIER_HEIGHT,BARRIER_WIDTH,ASTEROID_LIFE)
+        self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,\
+        BARRIER_HEIGHT,BARRIER_WIDTH,ASTEROID_LIFE)
 
 
     def create_aliens(self):

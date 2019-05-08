@@ -75,7 +75,7 @@ BOLT_RATE   = 8
 
 ### BARRIER CONSTANTS ###
 # width of a defense barrier
-BARRIER_WIDTH = 90
+BARRIER_WIDTH = 70
 #height of barrier
 BARRIER_HEIGHT = 50
 #x-pos of left barrier
@@ -149,3 +149,5 @@ MISS_PENALTY = 25
 #Controls how accurate are the heat seeking missles
 #int <= 5
 HEAT_SEEKING_DIFFICULTY = 5
+#Durability of the asteroid
+ASTEROID_LIFE = 20
