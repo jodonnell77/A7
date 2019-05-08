@@ -158,7 +158,7 @@ class Wave(object):
         and y position DEFENSE_LINE above 0
         """
         self._dline = GPath(points=[0,DEFENSE_LINE,GAME_WIDTH,DEFENSE_LINE],\
-        linewidth=2, linecolor = "blue")
+        linewidth=2, linecolor = "white")
         return self._dline
     # UPDATE METHOD TO MOVE THE SHIP, ALIENS, AND LASER BOLTS
     def update(self,input, dt):
@@ -330,7 +330,7 @@ class Wave(object):
                     x=i.x
 
             #creates a bolt at the coordinate of the sait alien
-            self._bolts.append(Bolt(x,min(y), BOLT_SPEED, "alien", "blue" ))
+            self._bolts.append(Bolt(x,min(y), BOLT_SPEED, "alien", "purple" ))
             self._steps = 0 #bolt has just fired 0 steps ago
 
         for bolt in self._bolts:

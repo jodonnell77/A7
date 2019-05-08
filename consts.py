@@ -67,7 +67,7 @@ ALIEN_SPEED = 1.0
 # the width of a laser bolt
 BOLT_WIDTH  = 4
 # the height of a laser bolt
-BOLT_HEIGHT = 15
+BOLT_HEIGHT = 20
 # the number of pixels to move the bolt per update
 BOLT_SPEED  = 8
 # the number of ALIEN STEPS (not frames) between bolts
@@ -77,7 +77,7 @@ BOLT_RATE   = 8
 # width of a defense barrier
 BARRIER_WIDTH = 90
 #height of barrier
-BARRIER_HEIGHT = 40
+BARRIER_HEIGHT = 50
 #x-pos of left barrier
 LEFT_BARRIER_X = int(GAME_WIDTH*(1/3))
 #y-pos of left barrer
@@ -143,9 +143,9 @@ POINTS_PER_KILL = 100
 PLAYER_LIVES = 3
 #How fast the aliens are to speed up
 #The new speed as a percentage of the previous speed.
-SPEED_UP = 0.97
+SPEED_UP = 0.96
 #SCORE PENALTIES FOR MISSING
 MISS_PENALTY = 25
 #Controls how accurate are the heat seeking missles
 #int <= 5
-HEAT_SEEKING_DIFFICULTY = 4
+HEAT_SEEKING_DIFFICULTY = 5
