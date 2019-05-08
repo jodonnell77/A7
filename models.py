@@ -190,7 +190,7 @@ class Alien(GImage):
 
     # METHOD TO CHECK FOR COLLISION (IF DESIRED)
 
-    def detect_ship_bolt_collision(self,bolt):
+    def detect_bolt_collision(self,bolt):
         """
         This method checks to see if an bolt fired from the ship has struck an alien if that is true it will
         return True otherwise it will return False
@@ -318,3 +318,29 @@ class Barrier(GRectangle):
     def __init__(self,x_pos,y_pos,height,width,lives,fillcolor='green'):
         self._lives = lives
         super().__init__(x=x_pos,y=y_pos,fillcolor=fillcolor, width=width,height=height)
+
+    def detect_bolt_collision(self,bolt):
+        """
+        This method checks to see if an bolt fired from the ship has struck an alien if that is true it will
+        return True otherwise it will return False
+
+        Parameter bolt: an instance of Class Bolt
+        Precondition: bolt is of class bolt
+        """
+
+        # [x,y]
+        top_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
+        top_right_bolt = [bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() + BOLT_HEIGHT/2]
+        bottom_left_bolt = [bolt.get_bolt_x() - BOLT_WIDTH/2 , bolt.get_bolt_y() - BOLT_HEIGHT/2]
+        bottom_right_bolt =[bolt.get_bolt_x() + BOLT_WIDTH/2 , bolt.get_bolt_y() - BOLT_HEIGHT/2]
+
+        if self.contains((top_left_bolt[0],top_left_bolt[1])):
+            return True
+        if self.contains((top_right_bolt[0],top_right_bolt[1])):
+            return True
+        if self.contains((bottom_left_bolt[0],bottom_left_bolt[1])):
+            return True
+        if self.contains((bottom_right_bolt[0],bottom_right_bolt[1])):
+            return True
+
+        return False

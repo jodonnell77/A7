@@ -18,7 +18,6 @@ issue.  If you do not know, ask on Piazza and we will answer.
 from game2d import *
 from consts import *
 from models import *
-from introcs.geom import Point2, Matrix
 
 import random
 
@@ -128,6 +127,7 @@ class Wave(object):
         self._left_barrier = Barrier(LEFT_BARRIER_X,LEFT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
         self._right_barrier = Barrier(RIGHT_BARRIER_X,RIGHT_BARRIER_Y,BARRIER_HEIGHT,BARRIER_WIDTH,10)
 
+
     def create_aliens(self):
         """
         Creates the list of aliens in their respective positions, drawing from
@@ -178,6 +178,7 @@ class Wave(object):
         self.ship_collisions()
         self.alien_collisions()
         self.alien_dline_collision()
+        self.barrier_collision()
 
     def update_ship(self,input):
         """
@@ -405,7 +406,7 @@ class Wave(object):
                 if self._aliens[x][y] != None:
                     for ii in self._bolts:
                         if ii.get_kind_bolt() == 'player':
-                            if self._aliens[x][y].detect_ship_bolt_collision(ii):
+                            if self._aliens[x][y].detect_bolt_collision(ii):
                                 self._aliens[x][y] = None
                                 self._bolts.remove(ii)
                                 self._exists_player_bolt = False
@@ -433,3 +434,29 @@ class Wave(object):
                 if self._aliens[x][y] != None and \
                 self._aliens[x][y].get_alien_y() <= DEFENSE_LINE + ALIEN_HEIGHT/2:
                     self._dline_breached = True
+
+
+    def barrier_collision(self):
+        """
+        Check to see if a bolt hits the barrier, sets self._barrier to None when lives hit 0
+        """
+
+        for i in self._bolts:
+            if(self._left_barrier != None):
+                if self._left_barrier.detect_bolt_collision(i):
+                    self._left_barrier.decrease_lives()
+                    self._bolts.remove(i)
+                    if i.get_kind_bolt() == 'player':
+                        self._exists_player_bolt = False
+            if(self._right_barrier != None):
+                if self._right_barrier.detect_bolt_collision(i):
+                    self._right_barrier.decrease_lives()
+                    self._bolts.remove(i)
+                    if i.get_kind_bolt() == 'player':
+                        self._exists_player_bolt = False
+        if(self._left_barrier != None):    
+            if self._left_barrier.get_lives() == 0:
+                self._left_barrier = None
+        if(self._right_barrier != None):    
+            if self._right_barrier.get_lives() == 0:
+                self._right_barrier = None
