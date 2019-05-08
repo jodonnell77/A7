@@ -83,11 +83,11 @@ BARRIER_HEIGHT = 60
 #x-pos of left barrier
 LEFT_BARRIER_X = int(GAME_WIDTH*(1/3))
 #y-pos of left barrer
-LEFT_BARRIER_Y = 120
+LEFT_BARRIER_Y = 130
 #x-pos of right barrier
 RIGHT_BARRIER_X = int(GAME_WIDTH*(2/3))
 #y-pos of right barrier
-RIGHT_BARRIER_Y = 120
+RIGHT_BARRIER_Y = 130
 
 
 ### GAME CONSTANTS ###
