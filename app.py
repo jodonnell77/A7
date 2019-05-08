@@ -192,11 +192,9 @@ class Invaders(GameApp):
         """
         # IMPLEMENT ME
         self._background.draw(self.view)
-
         if self._state == STATE_INACTIVE:
             self._text.draw(self.view)
             self._infotext.draw(self.view)
-
         if self._state == STATE_NEWWAVE:
             self._text = None
 
@@ -214,6 +212,8 @@ class Invaders(GameApp):
             self._lives_numlabel.draw(self.view)
             self._score_label.draw(self.view)
             self._miss_label.draw(self.view)
+            self._left_b_label.draw(self.view)
+            self._right_b_label.draw(self.view) 
         if self._state == STATE_COMPLETE:
             self._pause_message.draw(self.view)
             self._wave.draw(self.view)
